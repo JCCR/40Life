@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme1" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/ActionBar1</item>
+        <item name="android:buttonStyle">@style/Button1</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ActionBar1</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme2" parent="Theme.Red">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/ActionBar2</item>
+        <item name="android:actionOverflowButtonStyle">@style/ActionBar2OverFlow</item>
+        <item name="android:windowBackground">@color/actionbar2_background</item>
+        <item name="android:textColor">@color/actionbar2_foreground</item>
+        <item name="android:textColorPrimary">@color/actionbar2_foreground</item>
+        <item name="android:textColorPrimaryInverse">@color/actionbar2_foreground</item>
+        <item name="android:textColorSecondary">@color/actionbar2_foreground</item>
+        <item name="android:textColorSecondaryInverse">@color/actionbar2_foreground</item>
+        <item name="android:textColorTertiary">@color/actionbar2_foreground</item>
+        <item name="android:textColorTertiaryInverse">@color/actionbar2_foreground</item>
+        <item name="android:buttonStyle">@style/Button2</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ActionBar2</item>
+    </style>
+
+    <style name="Button2" parent="Widget.AppCompat.ActionButton">
+        <item name="android:textColor">@color/actionbar2_foreground</item>
+        <item name="android:background">@drawable/button2_style</item>
+    </style>
+
+    <style name="Button1" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">@drawable/button1_style</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="ActionBar1"
+        parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:icon">@drawable/ic_launcher1</item>
+
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="ActionBar2"
+        parent="@style/ActionBar.Transparent.Red">
+        <item name="android:icon">@drawable/ic_launcher2</item>
+
+        <item name="android:titleTextStyle">@style/ActionBar2TitleText</item>
+
+        <!-- Support library compatibility -->
+        <item name="titleTextStyle">@style/ActionBar2TitleText</item>
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="ActionBar2TitleText"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/actionbar2_foreground</item>
+        <!-- The textColor property is backward compatible with the Support Library -->
+    </style>
+
+    <style name="ActionBar2OverFlow" parent="Widget.AppCompat.Base.ActionButton.Overflow">
+        <item name="android:src">@drawable/apptheme2_ic_menu_moreoverflow_normal_holo_dark</item>
+    </style>
+</resources>

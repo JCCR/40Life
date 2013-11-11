@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="actionbar1_background">#FF303030</color>
+    <color name="actionbar2_background">#FF000000</color>
+    <color name="actionbar2_foreground">#FFCC0000</color>
+    <color name="transparent">#00000000</color>
+    <color name="button1_hover">#7FFFFFFF</color>
+    <color name="button2_hover">#7FCC0000</color>
+</resources>
