@@ -15,14 +15,15 @@ public class LifeCounter {
     private CountDownTimer lifeLogTimer;
     public List<Integer> lifeLog;
 
-    private void setLife(int newlife){
+    public void setLife(int newlife) {
         life = newlife;
     }
-    public int getLife(){
+
+    public int getLife() {
         return life;
     }
 
-    public int increaseOrDecreaseLifeBy(int diff){
+    public int increaseOrDecreaseLifeBy(int diff) {
         lifeLogTimer.cancel();
         lifeLogTimer.start();
         tempLifeDiff += diff;
@@ -30,7 +31,7 @@ public class LifeCounter {
         return life;
     }
 
-    public LifeCounter(int startingLife){
+    public LifeCounter(int startingLife) {
         lifeLog = new ArrayList<Integer>();
         this.startingLife = startingLife;
         this.life = startingLife;
@@ -41,6 +42,7 @@ public class LifeCounter {
             public void onTick(long millisUntilFinished) {
 
             }
+
             @Override
             public void onFinish() {
                 lifeLog.add(tempLifeDiff);

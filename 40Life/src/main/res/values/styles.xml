@@ -1,8 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme1" parent="AppTheme1.Base">
-    </style>
+    <style name="AppTheme1" parent="AppTheme1.Base"></style>
 
     <!-- Base application theme. -->
     <style name="AppTheme1.Base" parent="Theme.AppCompat">
@@ -31,12 +30,15 @@
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar2</item>
     </style>
+
     <style name="MainLifeLayout">
 
     </style>
+
     <style name="ButtonBase" parent="android:Widget.DeviceDefault.Button.Borderless">
 
     </style>
+
     <style name="Button2" parent="ButtonBase">
         <item name="android:textColor">@color/actionbar2_foreground</item>
         <item name="android:background">@drawable/button2_style</item>
@@ -48,15 +50,13 @@
 
 
     <!-- ActionBar styles -->
-    <style name="ActionBar1"
-        parent="@style/Widget.AppCompat.ActionBar">
+    <style name="ActionBar1" parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:icon">@drawable/ic_launcher1</item>
 
     </style>
 
     <!-- ActionBar styles -->
-    <style name="ActionBar2"
-        parent="@style/ActionBar.Transparent.Red">
+    <style name="ActionBar2" parent="@style/ActionBar.Transparent.Red">
         <item name="android:icon">@drawable/ic_launcher2</item>
 
         <item name="android:titleTextStyle">@style/ActionBar2TitleText</item>
@@ -66,8 +66,7 @@
     </style>
 
     <!-- ActionBar title text -->
-    <style name="ActionBar2TitleText"
-        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="ActionBar2TitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/actionbar2_foreground</item>
         <!-- The textColor property is backward compatible with the Support Library -->
     </style>

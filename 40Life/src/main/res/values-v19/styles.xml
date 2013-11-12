@@ -7,8 +7,7 @@
     </style>
 
     <!-- ActionBar styles -->
-    <style name="ActionBar1.KitKat"
-        parent="@style/ActionBar.Transparent.Kitkat">
+    <style name="ActionBar1.KitKat" parent="@style/ActionBar.Transparent.Kitkat">
         <item name="android:icon">@drawable/ic_launcher1</item>
     </style>
 

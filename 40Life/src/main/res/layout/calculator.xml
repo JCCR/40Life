@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="*"
+    android:layout_margin="2dp"
+    android:id="@+id/tableLayout">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_weight="1"
+            android:textSize="40dp"
+            android:editable="false"
+            android:singleLine="true" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="7"
+                android:id="@+id/calc_7"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="8"
+                android:id="@+id/calc_8"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout2">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="9"
+                android:id="@+id/calc_9"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#222222"
+            android:layout_margin="1dp">
+
+            <ImageButton
+                style="@style/Button1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/calc_del"
+                android:layout_weight="1"
+                android:scaleType="center"
+                android:src="@android:drawable/ic_input_delete" />
+        </FrameLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tableRow"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="4"
+                android:id="@+id/calc_4"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout3">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="5"
+                android:id="@+id/calc_5"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout4">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="6"
+                android:id="@+id/calc_6"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#222222"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="÷"
+                android:id="@+id/calc_divide"
+                android:layout_weight="1"
+                android:textSize="26dp" />
+        </FrameLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tableRow2"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="1"
+                android:id="@+id/calc_1"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout5">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="2"
+                android:id="@+id/calc_2"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout6">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="3"
+                android:id="@+id/calc_3"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#222222"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="×"
+                android:id="@+id/calc_multiply"
+                android:layout_weight="1"
+                android:textSize="26dp" />
+        </FrameLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tableRow3"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#3b3b3b"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="0"
+                android:id="@+id/calc_0"
+                android:layout_weight="1" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#222222"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout7">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="−"
+                android:id="@+id/calc_minus"
+                android:layout_weight="1"
+                android:textSize="30dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#222222"
+            android:layout_margin="1dp"
+            android:id="@+id/frameLayout8">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="+"
+                android:id="@+id/calc_plus"
+                android:layout_weight="1"
+                android:textSize="26dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#222222"
+            android:layout_margin="1dp">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="="
+                android:id="@+id/calc_equals"
+                android:layout_weight="1"
+                android:textSize="26dp" />
+        </FrameLayout>
+    </TableRow>
+</TableLayout>

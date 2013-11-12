@@ -15,49 +15,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true">
 
-        <LinearLayout
+        <net.cubitum.fortylife.LargeLifeCounterView
+            android:layout_height="126dp"
             android:layout_width="fill_parent"
-            android:layout_height="136dp"
-            android:layout_margin="1dp"
-            android:id="@+id/layout_mainlife"
-            android:background="@color/lifelayout1_background">
+            android:id="@+id/lifecounter_main">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="−"
-                android:id="@+id/btn_minus"
-                android:textSize="54dp"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="2dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="40"
-                android:id="@+id/btn_mainlife"
-                android:layout_gravity="center_vertical"
-                android:textSize="60dp"
-                android:longClickable="true"
-                android:layout_weight="1"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="+"
-                android:id="@+id/btn_plus"
-                android:textSize="48dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginBottom="2dp" />
-        </LinearLayout>
+        </net.cubitum.fortylife.LargeLifeCounterView>
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -79,5 +42,7 @@
             </TableLayout>
 
         </RelativeLayout>
+
     </LinearLayout>
+
 </RelativeLayout>
