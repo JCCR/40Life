@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/40Life/40Life.iml" filepath="$PROJECT_DIR$/40Life/40Life.iml" />
       <module fileurl="file://$PROJECT_DIR$/40LifeProject_KitKat.iml" filepath="$PROJECT_DIR$/40LifeProject_KitKat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/40Life_git_desktop.iml" filepath="$PROJECT_DIR$/40Life_git_desktop.iml" />
     </modules>
   </component>
 </project>

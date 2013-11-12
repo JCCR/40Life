@@ -31,4 +31,10 @@
         android:negativeButtonText="@null"
         android:positiveButtonText="@null" />
 
+    <CheckBoxPreference
+        android:key="vibrate"
+        android:title="@string/pref_vibrate"
+        android:summary="@string/pref_description_vibrate"
+        android:defaultValue="false" />
+
 </PreferenceScreen>

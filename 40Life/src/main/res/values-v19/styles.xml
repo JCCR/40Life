@@ -1,21 +1,15 @@
 <resources>
 
-
-
     <!-- Base application theme. -->
-    <style name="AppTheme1" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
-        <item name="android:actionBarStyle">@style/ActionBar1</item>
-
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/ActionBar1</item>
+    <style name="AppTheme1" parent="AppTheme1.Base">
+        <item name="android:actionBarStyle">@style/ActionBar1.KitKat</item>
+        <item name="actionBarStyle">@style/ActionBar1.KitKat</item>
     </style>
 
     <!-- ActionBar styles -->
-    <style name="ActionBar1"
+    <style name="ActionBar1.KitKat"
         parent="@style/ActionBar.Transparent.Kitkat">
         <item name="android:icon">@drawable/ic_launcher1</item>
-
     </style>
 
 </resources>

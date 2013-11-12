@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -16,6 +17,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -45,8 +47,30 @@ public class SettingsActivity extends PreferenceActivity {
         super.onPostCreate(savedInstanceState);
 
         setupSimplePreferencesScreen();
+        bindCommanderToLifePreference();
     }
 
+    private void bindCommanderToLifePreference() {
+
+
+
+        CheckBoxPreference commander_mode = (CheckBoxPreference) findPreference("commander_mode");
+
+        commander_mode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                ListPreference life_total = (ListPreference) findPreference("life_total");
+                if ((Boolean) newValue) {
+                    life_total.setValue("40");
+                    life_total.setSummary("40");
+                } else {
+                    life_total.setValue("20");
+                    life_total.setSummary("20");
+                }
+                return true;
+            }
+        });
+    }
     /**
      * Shows the simplified settings UI if the device configuration if the
      * device configuration dictates that a simplified, single-pane UI should be
@@ -211,6 +235,9 @@ public class SettingsActivity extends PreferenceActivity {
             // guidelines.
             bindPreferenceSummaryToValue(findPreference("life_total"));
             bindPreferenceSummaryToValue(findPreference("player_count"));
+
+            //bindCommanderToLifePreference();
+
         }
     }
 

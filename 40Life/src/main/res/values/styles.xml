@@ -1,13 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme1" parent="Theme.AppCompat">
+    <style name="AppTheme1" parent="AppTheme1.Base">
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme1.Base" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/ActionBar1</item>
         <item name="android:buttonStyle">@style/Button1</item>
+
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar1</item>
     </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme2" parent="Theme.Red">
         <!-- Customize your theme here. -->
@@ -25,15 +31,21 @@
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar2</item>
     </style>
+    <style name="MainLifeLayout">
 
-    <style name="Button2" parent="Widget.AppCompat.ActionButton">
+    </style>
+    <style name="ButtonBase" parent="android:Widget.DeviceDefault.Button.Borderless">
+
+    </style>
+    <style name="Button2" parent="ButtonBase">
         <item name="android:textColor">@color/actionbar2_foreground</item>
         <item name="android:background">@drawable/button2_style</item>
     </style>
 
-    <style name="Button1" parent="Widget.AppCompat.ActionButton">
+    <style name="Button1" parent="ButtonBase">
         <item name="android:background">@drawable/button1_style</item>
     </style>
+
 
     <!-- ActionBar styles -->
     <style name="ActionBar1"

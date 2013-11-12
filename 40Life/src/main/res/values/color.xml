@@ -4,6 +4,8 @@
     <color name="actionbar2_background">#FF000000</color>
     <color name="actionbar2_foreground">#FFCC0000</color>
     <color name="transparent">#00000000</color>
-    <color name="button1_hover">#7FFFFFFF</color>
-    <color name="button2_hover">#7FCC0000</color>
+    <color name="button1_hover">#7F7F7F</color>
+    <color name="button2_hover">#7F0000</color>
+    <color name="lifelayout1_background">#505050</color>
+    <color name="lifelayout2_background">#CC0000</color>
 </resources>
