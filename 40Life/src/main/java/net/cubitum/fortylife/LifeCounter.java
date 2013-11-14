@@ -23,6 +23,10 @@ public class LifeCounter {
         return life;
     }
 
+    public int getStartingLife(){
+        return startingLife;
+    }
+
     public int increaseOrDecreaseLifeBy(int diff) {
         lifeLogTimer.cancel();
         lifeLogTimer.start();
@@ -45,10 +49,17 @@ public class LifeCounter {
 
             @Override
             public void onFinish() {
-                lifeLog.add(tempLifeDiff);
-                tempLifeDiff = 0;
+                lifeLogUpdate();
             }
         };
+    }
+
+    public void lifeLogUpdate(){
+        lifeLogTimer.cancel();
+        if(tempLifeDiff != 0){
+            lifeLog.add(tempLifeDiff);
+            tempLifeDiff = 0;
+        }
     }
 
 

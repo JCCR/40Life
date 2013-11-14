@@ -35,7 +35,7 @@
 
     </style>
 
-    <style name="ButtonBase" parent="android:Widget.DeviceDefault.Button.Borderless">
+    <style name="ButtonBase" parent="Widget.AppCompat.ActionButton">
 
     </style>
 

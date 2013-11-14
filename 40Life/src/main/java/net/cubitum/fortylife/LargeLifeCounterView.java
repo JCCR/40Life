@@ -7,9 +7,18 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by JuanCarlos on 11/12/13.
@@ -67,7 +76,7 @@ public class LargeLifeCounterView extends LinearLayout {
             @Override
             public boolean onLongClick(View v) {
                 if (!mTwoFingersTapped) {
-                    AlertDialog dialogShown;
+                    mLifeCounter.lifeLogUpdate();
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     // Get the layout inflater
                     LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -75,6 +84,7 @@ public class LargeLifeCounterView extends LinearLayout {
                     // Inflate and set the layout for the dialog
                     // Pass null as the parent view because its going in the dialog layout
                     final EditText editText = (EditText) dialogView.findViewById(R.id.editText);
+                    final ListView listView = (ListView) dialogView.findViewById(R.id.listView);
                     builder.setView(dialogView)
                             // Add action buttons
                             .setPositiveButton(R.string.apply, new DialogInterface.OnClickListener() {
@@ -87,6 +97,7 @@ public class LargeLifeCounterView extends LinearLayout {
                                         newLife = mLifeCounter.getLife();
                                     }
                                     mLifeCounter.increaseOrDecreaseLifeBy(newLife - mLifeCounter.getLife());
+                                    mLifeCounter.lifeLogUpdate();
                                     update();
                                 }
                             })
@@ -95,8 +106,30 @@ public class LargeLifeCounterView extends LinearLayout {
                                     dialog.cancel();
                                 }
                             });
-                    dialogShown = builder.show();
+                    builder.show();
                     editText.setText(String.valueOf(mLifeCounter.getLife()));
+                    List<String> lifeLog = new ArrayList<String>();
+                    lifeLog.add(String.valueOf(mLifeCounter.getStartingLife()));
+                    int prev =mLifeCounter.getStartingLife();
+                    String line;
+                    for(int i : mLifeCounter.lifeLog){
+                        prev = prev + i;
+                        line = String.valueOf(prev);
+                        if(i>0){
+                            line += " (+"+String.valueOf(i)+")";
+                        }else{
+                            line += " ("+String.valueOf(i)+")";
+                        }
+                        lifeLog.add(line);
+                    }
+                    Collections.reverse(lifeLog);
+                    listView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,lifeLog));
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        public void onItemClick(AdapterView<?> parent, View view,
+                                                int position, long id) {
+                            editText.setText(((TextView) view).getText().toString().split(" \\(")[0]);
+                        }
+                    });
                     //dialog.show();
                     //vibrate();
                 } else {
