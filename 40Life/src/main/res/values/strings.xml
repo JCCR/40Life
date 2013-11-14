@@ -10,5 +10,13 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_lifedetail">Player Life</string>
+    <string name="life">Life</string>
+    <string name="toggle_poison_counters">Toggle poison counters</string>
+    <string name="commander_combat_damage">Commander combat damage</string>
+    <string name="poison_caps">POISON</string>
+    <string name="life_caps">LIFE</string>
+    <string name="action_random">Flip Coin/Roll Dice</string>
+    <string name="action_profile">Commander Profile</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

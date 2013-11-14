@@ -20,8 +20,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     //service objects
     private Vibrator mVibrator;
 
-    //ui states
-    private boolean mTwoFingersTapped;
     private boolean mInitialized = false;
 
     //preferences
@@ -31,8 +29,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     //objects
 
+
     //view objects
     private LargeLifeCounterView mLifeCounterMain;
+    private MenuItem mMenuItem;
 
 
     private void vibrate() {
@@ -60,13 +60,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         mPowerSaveMode = sharedPrefs.getBoolean("power_save_mode", false);
 
         //power save theme change
-        if (mPowerSaveMode) {
 
-
-        } else {
-
-
-        }
 
         mVibrate = sharedPrefs.getBoolean("vibrate", false);
         //--
@@ -130,6 +124,25 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+
+        //theme action buttons
+        SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        mPowerSaveMode = sharedPrefs.getBoolean("power_save_mode", false);
+
+        //power save theme change
+        if (mPowerSaveMode) {
+            mMenuItem = menu.findItem(R.id.action_random);
+            mMenuItem.setIcon(R.drawable.action_random_icon2);
+            mMenuItem = menu.findItem(R.id.action_profile);
+            mMenuItem.setIcon(R.drawable.action_dragon_icon2);
+        } else {
+            mMenuItem = menu.findItem(R.id.action_random);
+            mMenuItem.setIcon(R.drawable.action_random_icon);
+            mMenuItem = menu.findItem(R.id.action_profile);
+            mMenuItem.setIcon(R.drawable.action_dragon_icon);
+        }
         return true;
     }
 
@@ -143,6 +156,11 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.action_reset:
+                return true;
+            case R.id.action_random:
+                return true;
+            case R.id.action_profile:
+                startActivity(new Intent(this, ProfileActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

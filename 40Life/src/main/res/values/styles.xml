@@ -8,7 +8,8 @@
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/ActionBar1</item>
         <item name="android:buttonStyle">@style/Button1</item>
-
+        <item name="android:imageButtonStyle">@style/Button1</item>
+        <item name="android:buttonStyleToggle">@style/Button1</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar1</item>
     </style>
@@ -27,6 +28,8 @@
         <item name="android:textColorTertiary">@color/actionbar2_foreground</item>
         <item name="android:textColorTertiaryInverse">@color/actionbar2_foreground</item>
         <item name="android:buttonStyle">@style/Button2</item>
+        <item name="android:imageButtonStyle">@style/Button2</item>
+        <item name="android:buttonStyleToggle">@style/Button2</item>
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/ActionBar2</item>
     </style>
@@ -37,6 +40,10 @@
 
     <style name="ButtonBase" parent="Widget.AppCompat.ActionButton">
 
+    </style>
+
+    <style name="ImageViewRed">
+        <item name="android:tint">#CC0000</item>
     </style>
 
     <style name="Button2" parent="ButtonBase">

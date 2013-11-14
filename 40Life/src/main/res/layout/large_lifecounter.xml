@@ -7,6 +7,75 @@
     android:layout_height="fill_parent"
     android:id="@+id/layout_lifecounter">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/layout_extra">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#000000"
+            android:alpha="0.25"></FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="52dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="0dp">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:foregroundGravity="center">
+
+                <ToggleButton
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/btn_toggle_poison"
+                    android:textOff=" "
+                    android:textOn=" "
+                    android:clickable="true" />
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/skull_icon"
+                    android:padding="12dp"
+                    android:clickable="false"
+                    android:id="@+id/poison_icon"
+                    android:contentDescription="@string/toggle_poison_counters" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:foregroundGravity="center">
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/btn_combatdmg"
+                    android:clickable="true" />
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/sword_icon"
+                    android:padding="12dp"
+                    android:id="@+id/combatdmg_icon"
+                    android:contentDescription="@string/commander_combat_damage"
+                    android:focusableInTouchMode="false" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -19,19 +88,35 @@
         android:layout_marginBottom="2dp"
         android:clickable="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="40"
-        android:id="@+id/btn_mainlife"
-        android:layout_gravity="center_vertical"
-        android:textSize="60dp"
-        android:longClickable="true"
-        android:layout_weight="1"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:text="40"
+            android:id="@+id/btn_mainlife"
+            android:layout_gravity="center_vertical"
+            android:textSize="60dp"
+            android:longClickable="true"
+            android:layout_weight="1"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/life"
+            android:id="@+id/txt_mode"
+            android:layout_gravity="center_horizontal"
+            android:textSize="26dp"
+            android:layout_marginTop="5dp"
+            android:visibility="invisible" />
+    </FrameLayout>
 
     <Button
         android:layout_width="wrap_content"
