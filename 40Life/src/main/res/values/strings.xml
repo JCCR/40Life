@@ -17,6 +17,9 @@
     <string name="life_caps">LIFE</string>
     <string name="action_random">Flip Coin/Roll Dice</string>
     <string name="action_profile">Commander Profile</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">Commander Profile</string>
+    <string name="action_search_commander">Search for a Commander</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_seach">Commander Search</string>
 
 </resources>

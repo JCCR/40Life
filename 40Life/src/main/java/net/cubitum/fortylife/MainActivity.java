@@ -14,6 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -25,6 +30,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     //preferences
     private boolean mVibrate = false;
     private int mStartingLife;
+    private int mPlayerCount;
     private boolean mPowerSaveMode = false;
 
     //objects
@@ -33,7 +39,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     //view objects
     private LargeLifeCounterView mLifeCounterMain;
     private MenuItem mMenuItem;
-
+    private TableLayout mTableLayoutGenerals;
 
     private void vibrate() {
         vibrate(75);
@@ -52,29 +58,85 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         //initialize objects
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mLifeCounterMain = (LargeLifeCounterView) findViewById(R.id.lifecounter_main);
+        mTableLayoutGenerals = (TableLayout) findViewById(R.id.tablelayout_generals);
         //--
 
         //preference loading
         SharedPreferences sharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this);
         mPowerSaveMode = sharedPrefs.getBoolean("power_save_mode", false);
-
-        //power save theme change
-
-
+        mPlayerCount = Integer.parseInt(sharedPrefs.getString("player_count", "5"));
+        mStartingLife = Integer.parseInt(sharedPrefs.getString("life_total", "40"));
         mVibrate = sharedPrefs.getBoolean("vibrate", false);
         //--
 
         //initialize app ui
         if (!mInitialized) {
-            mStartingLife = Integer.parseInt(sharedPrefs.getString("life_total", "40"));
             mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
+            //mLifeCounterMain = (LargeLifeCounterView) findViewById(R.id.lifecounter_main2);
+            mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
+            int[] rc = calculateRowsColumns(mPlayerCount - 1);
+            createTableLayoutGenerals(rc[0], rc[1], rc[2], mTableLayoutGenerals);
             mInitialized = true;
         }
         //--
 
         //set object listeners
 
+    }
+
+    private void createTableLayoutGenerals(int rows, int columns, int empty, TableLayout tableLayout) {
+        for (int i = 0; i < rows; i++) {
+
+            TableRow row = new TableRow(this);
+            TableLayout.LayoutParams lp = new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.MATCH_PARENT, 1.0f);
+            row.setLayoutParams(lp);
+            for (int i2 = 0; i2 < columns; i2++) {
+                SmallLifeCounterView smlcv = new SmallLifeCounterView(this, (i == rows - 1 && empty > 0 && i2 == columns - 1));
+                TableRow.LayoutParams slp = new TableRow.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.MATCH_PARENT);
+                smlcv.setLayoutParams(slp);
+                row.addView(smlcv);
+            }
+            tableLayout.addView(row);
+        }
+    }
+
+    private int[] calculateRowsColumns(int n) {
+        int[] rc = new int[3];
+        if (n > 3) {
+            if (isPrime(n)) {
+                n++;
+                rc[2] = 1;
+            }
+            for (int c = 3; c > 0; c--) {
+                double rd = (double) n / (double) c;
+                int r = (int) rd;
+                if (rd == r) {
+                    rc[0] = r;
+                    rc[1] = c;
+                    if (c > r) {
+                        rc[0] = c;
+                        rc[1] = r;
+                    }
+                    break;
+                }
+            }
+        } else {
+            rc[0] = n;
+            rc[1] = 1;
+        }
+        return rc;
+    }
+
+    public boolean isPrime(int n) {
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) return false;
+        }
+        return (n > 1);
     }
 
     @Override

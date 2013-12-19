@@ -45,16 +45,19 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
     private SimpleCounter mPoisonCounter;
     private boolean mTwoFingersTapped;
     private boolean mPoisonMode;
+    private boolean mShowExtras;
 
     public LargeLifeCounterView(Context context) {
         super(context);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        inflater.inflate(R.layout.lifecounter_large, this);
         loadViews();
     }
 
     public LargeLifeCounterView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = LayoutInflater.from(context);
-        inflater.inflate(R.layout.large_lifecounter, this);
+        inflater.inflate(R.layout.lifecounter_large, this);
         loadViews();
     }
 
@@ -72,6 +75,10 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
 
     public LifeCounter getLifeCounter() {
         return mLifeCounter;
+    }
+
+    public void setLifeCounter(LifeCounter mLifeCounter) {
+        this.mLifeCounter = mLifeCounter;
     }
 
     public void update() {
@@ -95,7 +102,22 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
         mModeText.startAnimation(fadeInAnimation );
     }
 
+    public boolean isShowExtras() {
+        return mShowExtras;
+    }
+
+    public void setShowExtras(boolean mShowExtras) {
+        this.mShowExtras = mShowExtras;
+        mExtraLayout.setVisibility(mShowExtras ? View.VISIBLE : View.GONE);
+    }
+
+    public void restore(LifeCounter lifeCounter,boolean powerSaveTheme, boolean mShowExtras){
+        setLifeCounter(lifeCounter);
+        update();
+        setShowExtras(mShowExtras);
+    }
     public void initialize(int startingLife, boolean powerSaveTheme) {
+
         if (powerSaveTheme) {
             mLifeLayout.setBackgroundResource(R.color.lifelayout2_background);
             mExtraLayout.setBackgroundResource(R.color.extralayout2_background);
@@ -245,6 +267,8 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
                 togglePoisonMode();
             }
         });
+
+        update();
     }
 
     private void increaseOrDecreaseLifeBy(int diff) {
