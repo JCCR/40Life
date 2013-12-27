@@ -1,4 +1,4 @@
-package net.cubitum.fortylife;
+package net.cubitum.fortylife.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,12 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 
+import net.cubitum.fortylife.R;
 import net.sourceforge.jeval.Evaluator;
 
 public class CalculatorView extends TableLayout {
 
     EditText mEditText;
-    static Evaluator mEvaluator= null;
+    static Evaluator sEvaluator = null;
 
     ImageButton mCalcDel;
     public CalculatorView(Context context) {
@@ -34,7 +35,6 @@ public class CalculatorView extends TableLayout {
     }
 
     private void loadViews() {
-        mEvaluator = new Evaluator();
         ViewGroup group = (ViewGroup) findViewById(R.id.tableLayout);
         setAllButtonListener(group);
         mEditText = (EditText) findViewById(R.id.editText);
@@ -69,8 +69,8 @@ public class CalculatorView extends TableLayout {
     }
 
     public static String evaluate(String input) {
-        if(mEvaluator == null){
-            mEvaluator = new Evaluator();
+        if(sEvaluator == null){
+            sEvaluator = new Evaluator();
         }
         try {
             if (input.length() > 0) {
@@ -78,7 +78,7 @@ public class CalculatorView extends TableLayout {
                     input = input.substring(0, input.length() - 1);
                 }
             }
-            String resultString = mEvaluator.evaluate(input.replaceAll("÷", "/").replaceAll("×", "*").replaceAll("−", "-").replaceAll("\u221e", "Infinity"));
+            String resultString = sEvaluator.evaluate(input.replaceAll("÷", "/").replaceAll("×", "*").replaceAll("−", "-").replaceAll("\u221e", "Infinity"));
 
             if (resultString.equalsIgnoreCase("Infinity")) {
                 return "\u221e";

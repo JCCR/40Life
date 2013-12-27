@@ -1,4 +1,4 @@
-package net.cubitum.fortylife;
+package net.cubitum.fortylife.views;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,8 +20,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import net.cubitum.fortylife.net.cubitum.fortylife.model.LifeCounter;
-import net.cubitum.fortylife.net.cubitum.fortylife.model.SimpleCounter;
+import net.cubitum.fortylife.R;
+import net.cubitum.fortylife.model.LifeCounter;
+import net.cubitum.fortylife.model.SimpleCounter;
+import net.cubitum.fortylife.views.CalculatorView;
 
 import java.util.ArrayList;
 import java.util.Collections;

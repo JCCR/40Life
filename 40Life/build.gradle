@@ -27,4 +27,6 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:19.0.0'
     compile 'com.android.support:appcompat-v7:19.0.0'
     compile files('libs/jeval.jar')
+    compile files('libs/picasso-custom.jar')
+    compile files('libs/jsoup.jar')
 }

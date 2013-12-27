@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="picasso-custom">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/40Life/libs/picasso-custom.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

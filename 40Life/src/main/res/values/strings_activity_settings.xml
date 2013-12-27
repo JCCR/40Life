@@ -1,6 +1,7 @@
 <resources>
     <string name="title_activity_settings">Settings</string>
-
+    <string name="pref_player_name">Player Name</string>
+    <string name="pref_default_player_name">Player</string>
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->

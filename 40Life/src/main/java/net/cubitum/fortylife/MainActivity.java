@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -14,16 +15,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
+
+import net.cubitum.fortylife.views.LargeLifeCounterView;
+import net.cubitum.fortylife.views.SmallLifeCounterView;
 
 public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     //service objects
     private Vibrator mVibrator;
+    private TextToSpeech mTextToSpeech;
+
+    private static int TTS_DATA_CHECK = 1;
+
+    private void confirmTTSData() {
+        Intent intent = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(intent, TTS_DATA_CHECK);
+    }
 
     private boolean mInitialized = false;
 
@@ -51,9 +60,34 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         }
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == TTS_DATA_CHECK) {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                //Voice data exists
+            }
+            else {
+                Intent installIntent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installIntent);
+            }
+        }
+    }
+
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+
+        //initialize service objects
+        mTextToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    //Speak
+                }
+                else {
+                    //Handle initialization error here
+                }
+            }
+        });
 
         //initialize objects
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -196,14 +230,14 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         //power save theme change
         if (mPowerSaveMode) {
             mMenuItem = menu.findItem(R.id.action_random);
-            mMenuItem.setIcon(R.drawable.action_random_icon2);
+            mMenuItem.setIcon(R.drawable.ic_action_random2);
             mMenuItem = menu.findItem(R.id.action_profile);
-            mMenuItem.setIcon(R.drawable.action_dragon_icon2);
+            mMenuItem.setIcon(R.drawable.ic_action_dragon2);
         } else {
             mMenuItem = menu.findItem(R.id.action_random);
-            mMenuItem.setIcon(R.drawable.action_random_icon);
+            mMenuItem.setIcon(R.drawable.ic_action_random);
             mMenuItem = menu.findItem(R.id.action_profile);
-            mMenuItem.setIcon(R.drawable.action_dragon_icon);
+            mMenuItem.setIcon(R.drawable.ic_action_dragon);
         }
         return true;
     }
@@ -224,6 +258,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             case R.id.action_profile:
                 startActivity(new Intent(this, ProfileActivity.class));
                 return true;
+            case R.id.action_announce:
+                mTextToSpeech.speak("Hello!", TextToSpeech.QUEUE_ADD, null);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -243,6 +280,15 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
             return rootView;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mTextToSpeech != null) {
+            mTextToSpeech.stop();
+            mTextToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 
 }

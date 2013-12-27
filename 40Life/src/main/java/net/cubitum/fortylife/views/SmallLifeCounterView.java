@@ -1,31 +1,15 @@
-package net.cubitum.fortylife;
+package net.cubitum.fortylife.views;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ToggleButton;
 
-import net.cubitum.fortylife.net.cubitum.fortylife.model.LifeCounter;
-import net.cubitum.fortylife.net.cubitum.fortylife.model.SimpleCounter;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import net.cubitum.fortylife.R;
+import net.cubitum.fortylife.model.SimpleCounter;
 
 /**
  * Created by JuanCarlos on 11/12/13.

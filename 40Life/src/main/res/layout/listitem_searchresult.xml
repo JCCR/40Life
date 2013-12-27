@@ -1,0 +1,12 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="6dip" >
+
+
+    <view
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        class="net.cubitum.fortylife.views.CardView"
+        android:id="@+id/view" />
+</RelativeLayout>

@@ -25,7 +25,7 @@
         </ScrollView>
     </LinearLayout>
 
-    <net.cubitum.fortylife.CalculatorView
+    <net.cubitum.fortylife.views.CalculatorView
         android:layout_height="fill_parent"
-        android:layout_width="fill_parent"></net.cubitum.fortylife.CalculatorView>
+        android:layout_width="fill_parent"></net.cubitum.fortylife.views.CalculatorView>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package net.cubitum.fortylife.net.cubitum.fortylife.model;
+package net.cubitum.fortylife.model;
 
 import android.os.CountDownTimer;
 

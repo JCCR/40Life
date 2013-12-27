@@ -1,8 +1,40 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+
+
+    <item
+        android:id="@+id/action_mana_white"
+        android:title="@string/action_mana_white"
+        android:icon="@drawable/ic_action_mana_white"
+        android:orderInCategory="10"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_mana_blue"
+        android:title="@string/action_mana_blue"
+        android:icon="@drawable/ic_action_mana_blue"
+        android:orderInCategory="20"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_mana_black"
+        android:title="@string/action_mana_black"
+        android:icon="@drawable/ic_action_mana_black"
+        android:orderInCategory="30"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_mana_red"
+        android:title="@string/action_mana_red"
+        android:icon="@drawable/ic_action_mana_red"
+        android:orderInCategory="40"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_mana_green"
+        android:title="@string/action_mana_green"
+        android:icon="@drawable/ic_action_mana_green"
+        android:orderInCategory="50"
+        app:showAsAction="always"/>
+    <item android:id="@+id/action_search_byname"
+        android:title="@string/action_search_byname"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="never"/>
+
 </menu>

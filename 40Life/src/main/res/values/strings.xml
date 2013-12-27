@@ -20,6 +20,17 @@
     <string name="title_activity_profile">Commander Profile</string>
     <string name="action_search_commander">Search for a Commander</string>
     <string name="action_search">Search</string>
-    <string name="title_activity_seach">Commander Search</string>
+    <string name="title_activity_seach"></string>
+    <string name="action_anounce">Announce Life</string>
+    <string name="action_mana_white">White</string>
+    <string name="action_mana_blue">Blue</string>
+    <string name="action_mana_black">Black</string>
+    <string name="action_mana_red">Red</string>
+    <string name="action_mana_green">Green</string>
+    <string name="action_done">Done</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_search_byname">Search by Name</string>
+    <string name="no_results">No Results</string>
+    <string name="error_result">No Connection</string>
 
 </resources>
