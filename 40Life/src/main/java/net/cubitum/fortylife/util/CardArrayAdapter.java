@@ -1,4 +1,4 @@
-package net.cubitum.fortylife;
+package net.cubitum.fortylife.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 
+import net.cubitum.fortylife.R;
 import net.cubitum.fortylife.views.CardView;
 
 import java.util.List;

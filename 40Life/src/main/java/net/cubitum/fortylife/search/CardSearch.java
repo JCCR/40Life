@@ -19,8 +19,9 @@ public class CardSearch {
     private CardManaSymbol[] manaColors;
     private Card[] results;
     private int count = 0;
-
-    public CardSearch(){
+    private ICardSearchCache cache;
+    public CardSearch(ICardSearchCache cache){
+        this.cache = cache;
         this.setOnCardSetListener(new OnCardSetListener() {
             @Override
             public void onCardSet() {
@@ -99,17 +100,21 @@ public CardSearch filter(CardManaSymbol[] manaColors){
             results[i] = card;
             new Thread(){
                 public void run(){
-                    Document doc = null;
-                    try {
-                        doc = Jsoup.connect("http://magiccards.info/query?q=%21"+card.name).timeout(2000).userAgent(USER_AGENT).get();
-                    } catch (IOException e) {
+                    String cacheUrl = cache.get(card.name);
+                    if(cacheUrl==null){
+                        Document doc = null;
+                        try {
+                            doc = Jsoup.connect("http://magiccards.info/query?q=%21"+card.name).timeout(2000).userAgent(USER_AGENT).get();
+                        } catch (IOException e) {
 
+                        }
+                        if(doc != null){
+                            cacheUrl = doc.select("html > body > table:nth-of-type(3) > tbody > tr > td:nth-of-type(1) > img").attr("src");
+                            cache.put(card.name,cacheUrl);
+                        }
                     }
-                    if(doc != null){
-                        String src =  doc.select("html > body > table:nth-of-type(3) > tbody > tr > td:nth-of-type(1) > img").attr("src");
-                        card.imageUrl = src;
-                        mCardSetListener.onCardSet();
-                    }
+                    card.imageUrl = cacheUrl;
+                    mCardSetListener.onCardSet();
                 }
             }.start();
         }

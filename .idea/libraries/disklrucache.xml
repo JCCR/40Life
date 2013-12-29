@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="disklrucache">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/40Life/libs/disklrucache.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -73,8 +73,10 @@
     <orderEntry type="library" exported="" name="jsoup" level="project" />
     <orderEntry type="library" exported="" name="picasso-custom" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.0.0" level="project" />
+    <orderEntry type="library" exported="" name="disklrucache" level="project" />
     <orderEntry type="library" exported="" name="jeval" level="project" />
     <orderEntry type="library" exported="" name="ComAndroidSupportAppcompatV71900.aar" level="project" />
+    <orderEntry type="library" exported="" name="commons-io" level="project" />
   </component>
 </module>
 

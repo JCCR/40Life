@@ -1,25 +1,30 @@
 package net.cubitum.fortylife;
 
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.cubitum.fortylife.search.Card;
 import net.cubitum.fortylife.search.CardManaSymbol;
 import net.cubitum.fortylife.search.CardSearch;
+import net.cubitum.fortylife.search.ICardSearchCache;
+import net.cubitum.fortylife.util.CardArrayAdapter;
+import net.cubitum.fortylife.util.SimpleDiskCache;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +46,8 @@ public class SearchActivity extends ActionBarActivity {
     private List<String> mResultBacklog;
     private boolean mUseBacklog;
     private int mBacklogCount;
+    static SimpleDiskCache sDiskCache;
+    private static final int MAX_DISK_CACHE_SIZE = 10 * 1024 * 1024; //10MB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,20 +58,46 @@ public class SearchActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-
-        mSearchTimer = new CountDownTimer(750, 750) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-
+        if(sDiskCache ==null){
+            try {
+                sDiskCache = SimpleDiskCache.open(createDefaultCacheDir(this),1,MAX_DISK_CACHE_SIZE);
+            } catch (IOException e) {
+                Log.w("Cache","Cache creation failed: "+e.getMessage());
             }
+        }
+        mSearchTimer = new CountDownTimer(750, 750) {
+            @Override
+            public void onTick(long millisUntilFinished) {}
 
             @Override
             public void onFinish() {
                 cardSearch();
             }
         };
-        mCardSearch = new CardSearch();
+        mCardSearch = new CardSearch(new ICardSearchCache() {
+            @Override
+            public String get(String key) {
+                try {
+                    SimpleDiskCache.StringEntry entry = sDiskCache.getString(key);
+                    if(entry==null){
+                        return null;
+                    }
+                    return entry.getString();
+                } catch (IOException e) {
+                    Log.w("Cache","Cache get failed ("+key+"): "+e.getMessage());
+                    return null;
+                }
+            }
+
+            @Override
+            public void put(String key, String string) {
+                try {
+                    sDiskCache.put(key,string);
+                } catch (IOException e) {
+                    Log.w("Cache", "Cache put failed (" + key + "): " + e.getMessage());
+                }
+            }
+        });
         mCardSearch.setOnResultsLoadedListener(new CardSearch.OnResultsLoadedListener() {
             @Override
             public void onResultsLoaded() {
@@ -93,7 +126,6 @@ public class SearchActivity extends ActionBarActivity {
             }
         });
     }
-
 
     private void cardSearch() {
         mListView.setOnScrollListener(sDummyScrollListener);
@@ -314,4 +346,11 @@ public class SearchActivity extends ActionBarActivity {
         }
     }
 
+    static File createDefaultCacheDir(Context context) {
+        File cache = new File(context.getApplicationContext().getCacheDir(), "card-cache");
+        if (!cache.exists()) {
+            cache.mkdirs();
+        }
+        return cache;
+    }
 }

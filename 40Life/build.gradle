@@ -29,4 +29,6 @@ dependencies {
     compile files('libs/jeval.jar')
     compile files('libs/picasso-custom.jar')
     compile files('libs/jsoup.jar')
+    compile files('libs/commons-io.jar')
+    compile files('libs/disklrucache.jar')
 }
