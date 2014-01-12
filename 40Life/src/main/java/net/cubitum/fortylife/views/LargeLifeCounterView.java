@@ -281,6 +281,10 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
         }
     }
 
+    public void reset(){
+        getLifeCounter().reset();
+        update();
+    }
 
     @Override
     public void onAnimationStart(Animation animation) {
@@ -295,5 +299,9 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
     @Override
     public void onAnimationRepeat(Animation animation) {
 
+    }
+
+    public void setLifeBackground(int color){
+        mLifeLayout.setBackgroundColor(color);
     }
 }

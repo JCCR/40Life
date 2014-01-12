@@ -1,6 +1,7 @@
 package net.cubitum.fortylife.util;
 
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,11 @@ import net.cubitum.fortylife.views.CardView;
 import java.util.List;
 
 
-public class CardArrayAdapter extends ArrayAdapter<String> {
+public class CardArrayAdapter extends ArrayAdapter<Pair<String,String>> {
     private final Context context;
-    private final List<String> values;
+    private final List<Pair<String,String>> values;
 
-    public CardArrayAdapter(Context context, List<String> values) {
+    public CardArrayAdapter(Context context, List<Pair<String,String>> values) {
         super(context, R.layout.listitem_searchresult, values);
         this.context = context;
         this.values = values;
@@ -30,8 +31,9 @@ public class CardArrayAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.listitem_searchresult, parent, false);
 
         CardView cardView = (CardView) rowView.findViewById(R.id.view);
-        cardView.setCardImage(values.get(position));
-
+        Pair<String,String> data = values.get(position);
+        cardView.setCardImage(data.first);
+        cardView.setCardName(data.second);
         return rowView;
     }
 

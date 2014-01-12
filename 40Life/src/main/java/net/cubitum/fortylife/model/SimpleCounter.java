@@ -37,4 +37,7 @@ public class SimpleCounter {
         this.amount = startingAmount;
     }
 
+    public void reset(){
+        amount = startingAmount;
+    }
 }

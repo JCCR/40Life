@@ -1,17 +1,21 @@
 package net.cubitum.fortylife;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,6 +26,7 @@ import net.cubitum.fortylife.search.CardSearch;
 import net.cubitum.fortylife.search.ICardSearchCache;
 import net.cubitum.fortylife.util.CardArrayAdapter;
 import net.cubitum.fortylife.util.SimpleDiskCache;
+import net.cubitum.fortylife.views.CardView;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +48,7 @@ public class SearchActivity extends ActionBarActivity {
     private CountDownTimer mSearchTimer;
     private ProgressBar mProgressBar;
     private TextView mTextView;
-    private List<String> mResultBacklog;
+    private List<Pair<String,String>> mResultBacklog;
     private boolean mUseBacklog;
     private int mBacklogCount;
     static SimpleDiskCache sDiskCache;
@@ -101,9 +106,9 @@ public class SearchActivity extends ActionBarActivity {
         mCardSearch.setOnResultsLoadedListener(new CardSearch.OnResultsLoadedListener() {
             @Override
             public void onResultsLoaded() {
-                final List<String> resultList = new ArrayList<String>();
+                final List<Pair<String,String>> resultList = new ArrayList<Pair<String,String>>();
                 for (Card c : mCardSearch.results()) {
-                    resultList.add(c.imageUrl);
+                    resultList.add(Pair.create(c.imageUrl,c.name));
                 }
 
                 runOnUiThread(new Runnable() {
@@ -161,7 +166,7 @@ public class SearchActivity extends ActionBarActivity {
                 mBacklogCount=0;
                 int result = mCardSearch.filter(selectedMana.toArray(new CardManaSymbol[selectedMana.size()])).search();
                 if(result>sBacklogThreshold){
-                    mResultBacklog = new ArrayList<String>(result);
+                    mResultBacklog = new ArrayList<Pair<String,String>>(result);
                     mUseBacklog =true;
                     mBacklogCount =sBacklogThreshold;
                 }
@@ -200,9 +205,22 @@ public class SearchActivity extends ActionBarActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mTextView = (TextView) findViewById(R.id.textView);
         mListView = (ListView) findViewById(R.id.listView);
-        mCardArrayAdapter = new CardArrayAdapter(this, new ArrayList<String>());
+        mCardArrayAdapter = new CardArrayAdapter(this, new ArrayList<Pair<String,String>>());
         mListView.setAdapter(mCardArrayAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                CardView cardView = ((CardView)view.findViewById(R.id.view));
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("CardName",cardView.getCardName());
+                resultIntent.putExtra("CardImage",cardView.getCardImage());
+                resultIntent.putExtra("CardColor",cardView.getCardColor());
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
+                //Log.w(((CardView)view.findViewById(R.id.view)).getCardName(),((CardView)view.findViewById(R.id.view)).getCardImage());
+            }
+        });
     }
 
     @Override

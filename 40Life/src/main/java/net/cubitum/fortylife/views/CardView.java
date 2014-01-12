@@ -25,7 +25,8 @@ import net.cubitum.fortylife.util.CardTransformation;
 public class CardView extends FrameLayout {
     FrameLayout mFrameLayout;
     CardImageView mCardImageView;
-
+    String mCardImageUrl;
+    String mCardName;
 
     public CardView(Context context) {
         super(context);
@@ -61,10 +62,19 @@ public class CardView extends FrameLayout {
 
     }
 
+    public String getCardName() {
+        return mCardName;
+    }
+
+    public void setCardName(String mCardName) {
+        this.mCardName = mCardName;
+    }
+
     public int getCardColor(){
         return mCardImageView.getCardColor();
     }
     public void setCardImage(String url){
+        mCardImageUrl = url;
         try{
             Picasso.with(this.getContext()).load(url).transform(new CardTransformation()).into(mCardImageView);
         }catch (Exception ex){
@@ -72,6 +82,8 @@ public class CardView extends FrameLayout {
         }
 
     }
-
+    public String getCardImage(){
+        return mCardImageUrl;
+    }
 
 }

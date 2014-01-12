@@ -14,9 +14,19 @@ import net.cubitum.fortylife.model.SimpleCounter;
 /**
  * Created by JuanCarlos on 11/12/13.
  */
-public class SmallLifeCounterView extends LinearLayout {
+public abstract class SmallLifeCounterView extends LinearLayout {
 
     private LinearLayout mLifeLayout;
+    private int mIndex;
+    private int mRow;
+
+    public int getIndex() {
+        return mIndex;
+    }
+
+    public int getRow() {
+        return mRow;
+    }
 
     private Button mLifeButton;
 
@@ -37,12 +47,14 @@ public class SmallLifeCounterView extends LinearLayout {
         loadViews();
     }
 
-    public SmallLifeCounterView(Context context, boolean dummy){
+    public SmallLifeCounterView(Context context, boolean dummy, int index,int row){
         this(context);
         if(dummy){
             mLifeButton.setEnabled(false);
             mLifeButton.setText("");
         }
+        mIndex = index;
+        mRow = row;
     }
 
     private void loadViews() {
@@ -72,6 +84,7 @@ public class SmallLifeCounterView extends LinearLayout {
             public boolean onLongClick(View v) {
                 if (!mTwoFingersTapped) {
                       //decrease life?
+                    onLifeLongClick();
                 } else {
                     mTwoFingersTapped = false;
                 }
@@ -117,4 +130,14 @@ public class SmallLifeCounterView extends LinearLayout {
             mLifeButton.setText(String.valueOf(mLifeCounter.increaseOrDecreaseBy(diff)));
     }
 
+    public void reset(){
+        getLifeCounter().reset();
+        update();
+    }
+
+    public abstract void onLifeLongClick();
+
+    public void setLifeBackground(int color){
+        mLifeLayout.setBackgroundColor(color);
+    }
 }

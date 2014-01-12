@@ -1,14 +1,17 @@
 package net.cubitum.fortylife;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +23,9 @@ import android.widget.TableRow;
 
 import net.cubitum.fortylife.views.LargeLifeCounterView;
 import net.cubitum.fortylife.views.SmallLifeCounterView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -61,6 +67,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == TTS_DATA_CHECK) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
                 //Voice data exists
@@ -69,9 +76,56 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 Intent installIntent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
                 startActivity(installIntent);
             }
+        }else if(requestCode == 1337){
+            if (resultCode == Activity.RESULT_OK) {
+                int color = data.getIntExtra("CardColor",-1);
+                if(color != -1){
+                    mSelectedGeneralView.setLifeBackground(color);
+                }
+
+            }
+        } else if(requestCode == 1338){
+        if (resultCode == Activity.RESULT_OK) {
+            int color = data.getIntExtra("CardColor",-1);
+            if(color != -1){
+                mLifeCounterMain.setLifeBackground(color);
+            }
+
         }
     }
+    }
 
+    PowerManager mPowerManager = null;
+    PowerManager.WakeLock mWakeLock = null;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(mPowerManager == null){
+            mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        }
+        if(mWakeLock == null){
+            mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "40Life");
+        }else{
+            if( mWakeLock.isHeld()){
+                return;
+            }
+        }
+        mWakeLock.acquire();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mWakeLock == null){
+            return;
+        }else{
+            if(mWakeLock.isHeld()){
+               mWakeLock.release();
+            }
+        }
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -119,24 +173,43 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     }
 
+    //TODO: change from list<list> collection to something more efficient
+    List<List<SmallLifeCounterView>> mGeneralsViewList = new ArrayList<List<SmallLifeCounterView>>();
     private void createTableLayoutGenerals(int rows, int columns, int empty, TableLayout tableLayout) {
-        for (int i = 0; i < rows; i++) {
 
+        for (int i = 0; i < rows; i++) {
+            List<SmallLifeCounterView> mRowGeneralsViewList = new ArrayList<SmallLifeCounterView>(rows);
             TableRow row = new TableRow(this);
             TableLayout.LayoutParams lp = new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.MATCH_PARENT, 1.0f);
             row.setLayoutParams(lp);
             for (int i2 = 0; i2 < columns; i2++) {
-                SmallLifeCounterView smlcv = new SmallLifeCounterView(this, (i == rows - 1 && empty > 0 && i2 == columns - 1));
+                SmallLifeCounterView smlcv = new SmallLifeCounterView(this, (i == rows - 1 && empty > 0 && i2 == columns - 1), i2, i) {
+                    @Override
+                    public void onLifeLongClick() {
+                        Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+                        startActivityForResult(i,1337);
+                        setSelectedGeneralView(this);
+                    }
+                };
                 TableRow.LayoutParams slp = new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT);
                 smlcv.setLayoutParams(slp);
+                mRowGeneralsViewList.add(smlcv);
                 row.addView(smlcv);
             }
+            mGeneralsViewList.add(mRowGeneralsViewList);
             tableLayout.addView(row);
         }
+    }
+
+
+
+    SmallLifeCounterView mSelectedGeneralView;
+    public void setSelectedGeneralView(SmallLifeCounterView v){
+        mSelectedGeneralView = v;
     }
 
     private int[] calculateRowsColumns(int n) {
@@ -252,14 +325,22 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.action_reset:
+                mLifeCounterMain.reset();
+                for(List<SmallLifeCounterView> vl : mGeneralsViewList){
+                    for(SmallLifeCounterView v : vl){
+                        v.reset();
+                    }
+                }
                 return true;
             case R.id.action_random:
                 return true;
             case R.id.action_profile:
-                startActivity(new Intent(this, ProfileActivity.class));
+                //startActivity(new Intent(this, ProfileActivity.class));
+                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivityForResult(i,1338);
                 return true;
             case R.id.action_announce:
-                mTextToSpeech.speak("Hello!", TextToSpeech.QUEUE_ADD, null);
+                mTextToSpeech.speak(String.valueOf(mLifeCounterMain.getLifeCounter().getAmount())+" life.", TextToSpeech.QUEUE_ADD, null);
                 return true;
         }
         return super.onOptionsItemSelected(item);
