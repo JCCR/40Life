@@ -46,6 +46,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private boolean mVibrate = false;
     private int mStartingLife;
     private int mPlayerCount;
+    private String mPlayerName;
     private boolean mPowerSaveMode = false;
 
     //objects
@@ -156,6 +157,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         mPlayerCount = Integer.parseInt(sharedPrefs.getString("player_count", "5"));
         mStartingLife = Integer.parseInt(sharedPrefs.getString("life_total", "40"));
         mVibrate = sharedPrefs.getBoolean("vibrate", false);
+        mPlayerName = sharedPrefs.getString("player_name","Player");
         //--
 
         //initialize app ui
@@ -296,6 +298,9 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mPlayerCount = Integer.parseInt(prefs.getString("player_count", "5"));
             initializeTableLayoutGenerals();
         }
+        if (key.contentEquals("player_name")) {
+            mPlayerName = prefs.getString("player_name", "Player");
+        }
     }
 
     @Override
@@ -350,7 +355,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 startActivityForResult(i,1338);
                 return true;
             case R.id.action_announce:
-                mTextToSpeech.speak(String.valueOf(mLifeCounterMain.getLifeCounter().getAmount())+" life.", TextToSpeech.QUEUE_ADD, null);
+                mTextToSpeech.speak(String.valueOf(mPlayerName + " has "+ mLifeCounterMain.getLifeCounter().getAmount())+" life.", TextToSpeech.QUEUE_ADD, null);
                 return true;
         }
         return super.onOptionsItemSelected(item);
