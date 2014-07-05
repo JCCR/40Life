@@ -104,7 +104,7 @@ public CardSearch filter(CardManaSymbol[] manaColors){
                     if(cacheUrl==null){
                         Document doc = null;
                         try {
-                            doc = Jsoup.connect("http://magiccards.info/query?q=%21"+card.name).timeout(2000).userAgent(USER_AGENT).get();
+                            doc = Jsoup.connect("http://magiccards.info/query?q=%21"+card.name).timeout(20000).userAgent(USER_AGENT).get();
                         } catch (IOException e) {
 
                         }
@@ -157,7 +157,7 @@ public CardSearch filter(CardManaSymbol[] manaColors){
             }
         }
         try {
-            doc = Jsoup.connect("http://gatherer.wizards.com/Pages/Search/Default.aspx?output=compact&sort=rating-&action=advanced&type=+[\"Legendary\"]+[\"Creature\"]&page=" + page + colorQuery).timeout(2000).userAgent(USER_AGENT).get();
+            doc = Jsoup.connect("http://gatherer.wizards.com/Pages/Search/Default.aspx?output=compact&sort=rating-&action=advanced&type=+[\"Legendary\"]+[\"Creature\"]&page=" + page + colorQuery).timeout(20000).userAgent(USER_AGENT).get();
         } catch (IOException e) {
             return null;
         }
