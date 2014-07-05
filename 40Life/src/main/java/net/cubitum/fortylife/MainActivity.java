@@ -163,8 +163,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
             //mLifeCounterMain = (LargeLifeCounterView) findViewById(R.id.lifecounter_main2);
             mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
-            int[] rc = calculateRowsColumns(mPlayerCount - 1);
-            createTableLayoutGenerals(rc[0], rc[1], rc[2], mTableLayoutGenerals);
+            initializeTableLayoutGenerals();
             mInitialized = true;
         }
         //--
@@ -173,8 +172,16 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     }
 
+    private void initializeTableLayoutGenerals(){
+        int[] rc = calculateRowsColumns(mPlayerCount - 1);
+        mGeneralsViewList = new ArrayList<List<SmallLifeCounterView>>();
+        mTableLayoutGenerals.removeAllViews();
+        createTableLayoutGenerals(rc[0], rc[1], rc[2], mTableLayoutGenerals);
+    }
+
     //TODO: change from list<list> collection to something more efficient
-    List<List<SmallLifeCounterView>> mGeneralsViewList = new ArrayList<List<SmallLifeCounterView>>();
+    List<List<SmallLifeCounterView>> mGeneralsViewList;
+
     private void createTableLayoutGenerals(int rows, int columns, int empty, TableLayout tableLayout) {
 
         for (int i = 0; i < rows; i++) {
@@ -204,7 +211,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             tableLayout.addView(row);
         }
     }
-
 
 
     SmallLifeCounterView mSelectedGeneralView;
@@ -285,6 +291,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.contentEquals("power_save_mode")) {
             this.recreate();
+        }
+        if (key.contentEquals("player_count")) {
+            mPlayerCount = Integer.parseInt(prefs.getString("player_count", "5"));
+            initializeTableLayoutGenerals();
         }
     }
 
