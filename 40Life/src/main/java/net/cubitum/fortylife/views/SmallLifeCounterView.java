@@ -84,8 +84,9 @@ public abstract class SmallLifeCounterView extends LinearLayout {
             public boolean onLongClick(View v) {
                 if (!mTwoFingersTapped) {
                       //decrease life?
-                    onLifeLongClick();
+                    increaseOrDecreaseLifeBy(5);
                 } else {
+                    onLifeLongClick();
                     mTwoFingersTapped = false;
                 }
                 return true;
