@@ -113,7 +113,9 @@ public abstract class SmallLifeCounterView extends LinearLayout {
 
                 switch (action & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_POINTER_DOWN:
-                        increaseOrDecreaseLifeBy(-1);
+                        if (getLifeCounter().getAmount() > 0) {
+                            increaseOrDecreaseLifeBy(-1);
+                        }
                         //vibrate(250);
                         // set the mTwoFingersTapped flag to TRUE when we tap with 2 fingers at once
                         mTwoFingersTapped = true;
