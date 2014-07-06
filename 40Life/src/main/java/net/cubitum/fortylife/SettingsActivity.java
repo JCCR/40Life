@@ -91,15 +91,20 @@ public class SettingsActivity extends PreferenceActivity {
     private void updateDuelModePreference(Boolean value){
         EditTextPreference playerCount = (EditTextPreference) findPreference("player_count");
         CheckBoxPreference duelModeFaceToFace = (CheckBoxPreference) findPreference("duel_mode_f2f");
+
         if (value) {
             playerCount.setEnabled(false);
             playerCount.setSummary("2");
+            if (duelModeFaceToFace != null) {
             duelModeFaceToFace.setEnabled(true);
+            }
         } else {
             playerCount.setEnabled(true);
             playerCount.setSummary(playerCount.getText());
+            if (duelModeFaceToFace != null) {
             duelModeFaceToFace.setEnabled(false);
         }
+    }
     }
 
     /**
@@ -121,6 +126,11 @@ public class SettingsActivity extends PreferenceActivity {
         EditTextPreference playerNamePreference = (EditTextPreference) findPreference("player_name");
         if (playerNamePreference.getText().contentEquals("[[null]]")) {
             playerNamePreference.setText(Helpers.getOwnerDisplayName(this));
+        }
+
+        CheckBoxPreference duelModeFaceToFace = (CheckBoxPreference) findPreference("duel_mode_f2f");
+        if (android.os.Build.VERSION.SDK_INT < 11) {
+            getPreferenceScreen().removePreference(duelModeFaceToFace);
         }
 
         // Add 'notifications' preferences, and a corresponding header.

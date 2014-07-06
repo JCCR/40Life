@@ -210,8 +210,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     }
 
     private void rotateLifeCounters() {
-        mTableLayoutGenerals.getChildAt(0).setRotation((mDuelMode && mDuelFaceToFace) ? 180 : 0);
-        mLifeCounterMain.setRotation((mDuelMode && mDuelFaceToFace) ? 180 : 0);
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
+            mTableLayoutGenerals.getChildAt(0).setRotation((mDuelMode && mDuelFaceToFace) ? 180 : 0);
+            mLifeCounterMain.setRotation((mDuelMode && mDuelFaceToFace) ? 180 : 0);
+        }
     }
 
     private void initializeTableLayoutGenerals() {
