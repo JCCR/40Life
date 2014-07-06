@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private Vibrator mVibrator;
     private TextToSpeech mTextToSpeech;
 
-    private static int TTS_DATA_CHECK = 1;
+    private static int TTS_DATA_CHECK = 1336;
 
     private void confirmTTSData() {
         Intent intent = new Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
@@ -147,12 +147,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         super.onPostCreate(savedInstanceState);
 
         //initialize service objects
+        confirmTTSData();
         mTextToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             public void onInit(int status) {
-                if (status == TextToSpeech.SUCCESS) {
-                    //Speak
-                } else {
-                    //Handle initialization error here
+                if (status != TextToSpeech.SUCCESS) {
+                    mTextToSpeech = null;
+                    invalidateOptionsMenu();
                 }
             }
         });
@@ -398,6 +398,14 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 v.reset();
             }
         }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        if (mTextToSpeech == null) {
+            menu.findItem(R.id.action_announce).setEnabled(false);
+        }
+        return true;
     }
 
     @Override
