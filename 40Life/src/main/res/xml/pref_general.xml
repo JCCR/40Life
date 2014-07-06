@@ -24,6 +24,13 @@
         android:summary="@string/pref_description_duel"
         android:defaultValue="false" />
 
+    <CheckBoxPreference
+        android:key="duel_mode_f2f"
+        android:title="@string/pref_duel_f2f"
+        android:summary="@string/pref_description_duel_f2f"
+        android:defaultValue="false"
+        android:enabled="false"/>
+
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference

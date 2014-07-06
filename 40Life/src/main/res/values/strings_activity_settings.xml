@@ -2,22 +2,26 @@
     <string name="title_activity_settings">Settings</string>
     <string name="pref_player_name">Player Name</string>
     <string name="pref_default_player_name">Player</string>
-    <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
     <string name="pref_power_save">Power save mode</string>
     <string name="pref_description_power_save">A power saving theme will be applied. This only benefits devices with OLED screens.</string>
 
     <string name="pref_commander">Commander/EDH mode</string>
-    <string name="pref_description_commander">Enable this for the Commander/EDH interface.</string>
+    <string name="pref_description_commander">Display counters for commander damage.</string>
 
     <string name="pref_duel">1v1 mode</string>
     <string name="pref_description_duel">Show two life counters for a duel.</string>
 
     <string name="pref_title_life_total">Starting life</string>
     <string name="pref_default_life_total">20</string>
+
+    <string name="pref_duel_f2f">Face to face display</string>
+    <string name="pref_description_duel_f2f">Rotate the top life counter to face your opponent when in 1v1 mode.</string>
+
+    <string name="pref_vibrate">Haptic feedback</string>
+    <string name="pref_description_vibrate">Vibrate when life buttons are pressed.</string>
 
     <string-array name="pref_life_totals">
         <item>20</item>

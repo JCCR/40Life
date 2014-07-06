@@ -4,8 +4,6 @@
     <string name="app_name">40Life</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="pref_vibrate">Haptic feedback</string>
-    <string name="pref_description_vibrate">Vibrate when life buttons are pressed.</string>
     <string name="action_reset">Reset</string>
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>

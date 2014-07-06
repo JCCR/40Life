@@ -24,6 +24,7 @@
         </net.cubitum.fortylife.views.LargeLifeCounterView>
 
         <RelativeLayout
+            android:id="@+id/relativelayout_generals"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1">
@@ -39,6 +40,14 @@
             </TableLayout>
 
         </RelativeLayout>
+        <net.cubitum.fortylife.views.LargeLifeCounterView
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:id="@+id/lifecounter_secondary"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+        </net.cubitum.fortylife.views.LargeLifeCounterView>
 
     </LinearLayout>
 

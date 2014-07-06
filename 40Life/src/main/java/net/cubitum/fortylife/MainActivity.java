@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -48,14 +49,29 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     private int mPlayerCount;
     private String mPlayerName;
     private boolean mPowerSaveMode = false;
+    private boolean mDuelMode = false;
+    private boolean mCommanderMode = false;
+    private boolean mDuelFaceToFace = false;
 
+    private void setPlayerCount(int count) {
+        mPlayerCount = count;
+    }
+
+    private int getPlayerCount() {
+        if (mDuelMode) {
+            return 3;
+        }
+        return mPlayerCount;
+    }
     //objects
 
 
     //view objects
     private LargeLifeCounterView mLifeCounterMain;
+    private LargeLifeCounterView mLifeCounterSecondary;
     private MenuItem mMenuItem;
     private TableLayout mTableLayoutGenerals;
+    private View mGeneralsContainer;
 
     private void vibrate() {
         vibrate(75);
@@ -144,6 +160,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         //initialize objects
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mLifeCounterMain = (LargeLifeCounterView) findViewById(R.id.lifecounter_main);
+        mLifeCounterSecondary = (LargeLifeCounterView) findViewById(R.id.lifecounter_secondary);
+        mGeneralsContainer = findViewById(R.id.relativelayout_generals);
         mTableLayoutGenerals = (TableLayout) findViewById(R.id.tablelayout_generals);
         //--
 
@@ -151,7 +169,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         SharedPreferences sharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this);
         mPowerSaveMode = sharedPrefs.getBoolean("power_save_mode", false);
-        mPlayerCount = Integer.parseInt(sharedPrefs.getString("player_count", "5"));
+        setPlayerCount(Integer.parseInt(sharedPrefs.getString("player_count", "5")));
         mStartingLife = Integer.parseInt(sharedPrefs.getString("life_total", "40"));
         mVibrate = sharedPrefs.getBoolean("vibrate", false);
         mPlayerName = sharedPrefs.getString("player_name", null);
@@ -159,13 +177,14 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             mPlayerName = Helpers.getOwnerDisplayName(this);
         }
         mDuelMode = sharedPrefs.getBoolean("duel_mode", false);
+        mDuelFaceToFace = sharedPrefs.getBoolean("duel_mode_f2f", false);
         mCommanderMode = sharedPrefs.getBoolean("commander_mode", true);
         //--
 
         //initialize app ui
         if (!mInitialized) {
-            mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
-            initializeTableLayoutGenerals();
+
+            initializeUi();
             mInitialized = true;
         }
         //--
@@ -174,8 +193,29 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     }
 
+    private void initializeUi(){
+        mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
+        mLifeCounterSecondary.initialize(mStartingLife, mPowerSaveMode);
+
+        mLifeCounterSecondary.setVisibility(mDuelMode ? View.VISIBLE : View.GONE);
+
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mLifeCounterMain.getLayoutParams();
+        params.weight = mDuelMode ? 1 : 2;
+        mLifeCounterMain.setLayoutParams(params);
+        mGeneralsContainer.setVisibility(mCommanderMode ? View.VISIBLE : View.GONE);
+
+        initializeTableLayoutGenerals();
+
+        rotateLifeCounters();
+    }
+
+    private void rotateLifeCounters() {
+        mTableLayoutGenerals.getChildAt(0).setRotation((mDuelMode && mDuelFaceToFace) ? 180 : 0);
+        mLifeCounterMain.setRotation((mDuelMode && mDuelFaceToFace) ? 180 : 0);
+    }
+
     private void initializeTableLayoutGenerals() {
-        int[] rc = calculateRowsColumns(mPlayerCount - 1);
+        int[] rc = calculateRowsColumns(getPlayerCount() - 1);
         mGeneralsViewList = new ArrayList<List<SmallLifeCounterView>>();
         mTableLayoutGenerals.removeAllViews();
         createTableLayoutGenerals(rc[0], rc[1], rc[2], mTableLayoutGenerals);
@@ -293,14 +333,31 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key.contentEquals("power_save_mode")) {
+
             this.recreate();
-        }
-        if (key.contentEquals("player_count")) {
-            mPlayerCount = Integer.parseInt(prefs.getString("player_count", "5"));
-            initializeTableLayoutGenerals();
-        }
-        if (key.contentEquals("player_name")) {
+        } else if (key.contentEquals("player_count")) {
+
+            setPlayerCount(Integer.parseInt(prefs.getString("player_count", "5")));
+            initializeUi();
+        } else if (key.contentEquals("player_name")) {
+
             mPlayerName = prefs.getString("player_name", "Player");
+        } else if (key.contentEquals("duel_mode")) {
+
+            mDuelMode = prefs.getBoolean("duel_mode", false);
+            initializeUi();
+        } else if (key.contentEquals("duel_mode_f2f")) {
+
+            mDuelFaceToFace = prefs.getBoolean("duel_mode_f2f", false);
+            rotateLifeCounters();
+        } else if (key.contentEquals("commander_mode")) {
+
+            mCommanderMode = prefs.getBoolean("commander_mode", false);
+            initializeUi();
+        } else if (key.contentEquals("life_total")) {
+
+            mStartingLife = Integer.parseInt(prefs.getString("life_total", "40"));
+            initializeUi();
         }
     }
 
@@ -331,6 +388,18 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         return true;
     }
 
+    private void resetLifeCounters(){
+        mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
+        mLifeCounterMain.reset();
+        mLifeCounterSecondary.initialize(mStartingLife, mPowerSaveMode);
+        mLifeCounterSecondary.reset();
+        for (List<SmallLifeCounterView> vl : mGeneralsViewList) {
+            for (SmallLifeCounterView v : vl) {
+                v.reset();
+            }
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -341,12 +410,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.action_reset:
-                mLifeCounterMain.reset();
-                for (List<SmallLifeCounterView> vl : mGeneralsViewList) {
-                    for (SmallLifeCounterView v : vl) {
-                        v.reset();
-                    }
-                }
+                resetLifeCounters();
                 return true;
             case R.id.action_random:
                 return true;

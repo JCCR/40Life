@@ -48,6 +48,7 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
+
         setupSimplePreferencesScreen();
         bindCommanderToLifePreference();
         bindDuelModePreference();
@@ -89,12 +90,15 @@ public class SettingsActivity extends PreferenceActivity {
 
     private void updateDuelModePreference(Boolean value){
         EditTextPreference playerCount = (EditTextPreference) findPreference("player_count");
+        CheckBoxPreference duelModeFaceToFace = (CheckBoxPreference) findPreference("duel_mode_f2f");
         if (value) {
             playerCount.setEnabled(false);
             playerCount.setSummary("2");
+            duelModeFaceToFace.setEnabled(true);
         } else {
             playerCount.setEnabled(true);
             playerCount.setSummary(playerCount.getText());
+            duelModeFaceToFace.setEnabled(false);
         }
     }
 
