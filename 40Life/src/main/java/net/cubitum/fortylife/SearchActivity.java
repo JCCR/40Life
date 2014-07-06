@@ -118,15 +118,21 @@ public class SearchActivity extends ActionBarActivity {
                     public void run() {
                         mListView.setOnScrollListener(new EndlessScrollListener());
                         mProgressBar.setVisibility(View.INVISIBLE);
+                        mCardArrayAdapter.setNotifyOnChange(false);
                         if (mUseBacklog) {
-                            mResultBacklog.addAll(resultList);
-                            mCardArrayAdapter.addAll(mResultBacklog.subList(0, sBacklogThreshold));
+                            for (Pair<String, String> r : resultList) {
+                                mResultBacklog.add(r);
+                            }
+                            for (Pair<String, String> r : mResultBacklog.subList(0, sBacklogThreshold)) {
+                                mCardArrayAdapter.add(r);
+                            }
                         } else {
-                            mCardArrayAdapter.addAll(resultList);
-
+                            for (Pair<String, String> r : resultList) {
+                                mCardArrayAdapter.add(r);
+                            }
                         }
                         mCardArrayAdapter.notifyDataSetChanged();
-
+                        mCardArrayAdapter.setNotifyOnChange(true);
                     }
                 });
 
@@ -331,7 +337,12 @@ public class SearchActivity extends ActionBarActivity {
                         end = mResultBacklog.size();
                         mUseBacklog = false;
                     }
-                    mCardArrayAdapter.addAll(mResultBacklog.subList(mBacklogCount, end));
+                    mCardArrayAdapter.setNotifyOnChange(false);
+                    for (Pair<String, String> r : mResultBacklog.subList(mBacklogCount, end)) {
+                        mCardArrayAdapter.add(r);
+                    }
+                    mCardArrayAdapter.notifyDataSetChanged();
+                    mCardArrayAdapter.setNotifyOnChange(true);
                     mBacklogCount += sBacklogThreshold;
                     if (mBacklogCount >= mResultBacklog.size()) {
                         mUseBacklog = false;

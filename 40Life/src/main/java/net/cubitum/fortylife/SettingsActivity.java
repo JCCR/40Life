@@ -96,15 +96,15 @@ public class SettingsActivity extends PreferenceActivity {
             playerCount.setEnabled(false);
             playerCount.setSummary("2");
             if (duelModeFaceToFace != null) {
-            duelModeFaceToFace.setEnabled(true);
+                duelModeFaceToFace.setEnabled(true);
             }
         } else {
             playerCount.setEnabled(true);
             playerCount.setSummary(playerCount.getText());
             if (duelModeFaceToFace != null) {
-            duelModeFaceToFace.setEnabled(false);
+                duelModeFaceToFace.setEnabled(false);
+            }
         }
-    }
     }
 
     /**
