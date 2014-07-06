@@ -19,6 +19,8 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 
+import net.cubitum.fortylife.util.Helpers;
+
 import java.util.List;
 
 /**
@@ -111,6 +113,11 @@ public class SettingsActivity extends PreferenceActivity {
 
         // Add 'general' preferences.
         addPreferencesFromResource(R.xml.pref_general);
+
+        EditTextPreference playerNamePreference = (EditTextPreference) findPreference("player_name");
+        if (playerNamePreference.getText().contentEquals("[[null]]")) {
+            playerNamePreference.setText(Helpers.getOwnerDisplayName(this));
+        }
 
         // Add 'notifications' preferences, and a corresponding header.
         PreferenceCategory fakeHeader = new PreferenceCategory(this);

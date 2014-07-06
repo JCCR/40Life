@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import net.cubitum.fortylife.util.Helpers;
 import net.cubitum.fortylife.views.LargeLifeCounterView;
 import net.cubitum.fortylife.views.SmallLifeCounterView;
 
@@ -153,7 +154,12 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         mPlayerCount = Integer.parseInt(sharedPrefs.getString("player_count", "5"));
         mStartingLife = Integer.parseInt(sharedPrefs.getString("life_total", "40"));
         mVibrate = sharedPrefs.getBoolean("vibrate", false);
-        mPlayerName = sharedPrefs.getString("player_name", "Player");
+        mPlayerName = sharedPrefs.getString("player_name", null);
+        if (mPlayerName == null) {
+            mPlayerName = Helpers.getOwnerDisplayName(this);
+        }
+        mDuelMode = sharedPrefs.getBoolean("duel_mode", false);
+        mCommanderMode = sharedPrefs.getBoolean("commander_mode", true);
         //--
 
         //initialize app ui
