@@ -11,7 +11,6 @@ import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,30 +69,28 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == TTS_DATA_CHECK) {
-            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-                //Voice data exists
-            }
-            else {
+            if (resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                //Voice data does not exist
                 Intent installIntent = new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
                 startActivity(installIntent);
             }
-        }else if(requestCode == 1337){
+        } else if (requestCode == 1337) {
             if (resultCode == Activity.RESULT_OK) {
-                int color = data.getIntExtra("CardColor",-1);
-                if(color != -1){
+                int color = data.getIntExtra("CardColor", -1);
+                if (color != -1) {
                     mSelectedGeneralView.setLifeBackground(color);
                 }
 
             }
-        } else if(requestCode == 1338){
-        if (resultCode == Activity.RESULT_OK) {
-            int color = data.getIntExtra("CardColor",-1);
-            if(color != -1){
-                mLifeCounterMain.setLifeBackground(color);
-            }
+        } else if (requestCode == 1338) {
+            if (resultCode == Activity.RESULT_OK) {
+                int color = data.getIntExtra("CardColor", -1);
+                if (color != -1) {
+                    mLifeCounterMain.setLifeBackground(color);
+                }
 
+            }
         }
-    }
     }
 
     PowerManager mPowerManager = null;
@@ -103,13 +100,13 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     protected void onResume() {
         super.onResume();
 
-        if(mPowerManager == null){
+        if (mPowerManager == null) {
             mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         }
-        if(mWakeLock == null){
+        if (mWakeLock == null) {
             mWakeLock = mPowerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "40Life");
-        }else{
-            if( mWakeLock.isHeld()){
+        } else {
+            if (mWakeLock.isHeld()) {
                 return;
             }
         }
@@ -119,11 +116,11 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
     @Override
     protected void onPause() {
         super.onPause();
-        if(mWakeLock == null){
+        if (mWakeLock == null) {
             return;
-        }else{
-            if(mWakeLock.isHeld()){
-               mWakeLock.release();
+        } else {
+            if (mWakeLock.isHeld()) {
+                mWakeLock.release();
             }
         }
     }
@@ -137,8 +134,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             public void onInit(int status) {
                 if (status == TextToSpeech.SUCCESS) {
                     //Speak
-                }
-                else {
+                } else {
                     //Handle initialization error here
                 }
             }
@@ -157,7 +153,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         mPlayerCount = Integer.parseInt(sharedPrefs.getString("player_count", "5"));
         mStartingLife = Integer.parseInt(sharedPrefs.getString("life_total", "40"));
         mVibrate = sharedPrefs.getBoolean("vibrate", false);
-        mPlayerName = sharedPrefs.getString("player_name","Player");
+        mPlayerName = sharedPrefs.getString("player_name", "Player");
         //--
 
         //initialize app ui
@@ -174,7 +170,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
     }
 
-    private void initializeTableLayoutGenerals(){
+    private void initializeTableLayoutGenerals() {
         int[] rc = calculateRowsColumns(mPlayerCount - 1);
         mGeneralsViewList = new ArrayList<List<SmallLifeCounterView>>();
         mTableLayoutGenerals.removeAllViews();
@@ -198,7 +194,7 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                     @Override
                     public void onLifeLongClick() {
                         Intent i = new Intent(getApplicationContext(), SearchActivity.class);
-                        startActivityForResult(i,1337);
+                        startActivityForResult(i, 1337);
                         setSelectedGeneralView(this);
                     }
                 };
@@ -216,7 +212,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
 
 
     SmallLifeCounterView mSelectedGeneralView;
-    public void setSelectedGeneralView(SmallLifeCounterView v){
+
+    public void setSelectedGeneralView(SmallLifeCounterView v) {
         mSelectedGeneralView = v;
     }
 
@@ -341,8 +338,8 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
                 return true;
             case R.id.action_reset:
                 mLifeCounterMain.reset();
-                for(List<SmallLifeCounterView> vl : mGeneralsViewList){
-                    for(SmallLifeCounterView v : vl){
+                for (List<SmallLifeCounterView> vl : mGeneralsViewList) {
+                    for (SmallLifeCounterView v : vl) {
                         v.reset();
                     }
                 }
@@ -352,10 +349,10 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
             case R.id.action_profile:
                 //startActivity(new Intent(this, ProfileActivity.class));
                 Intent i = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivityForResult(i,1338);
+                startActivityForResult(i, 1338);
                 return true;
             case R.id.action_announce:
-                mTextToSpeech.speak(String.valueOf(mPlayerName + " has "+ mLifeCounterMain.getLifeCounter().getAmount())+" life.", TextToSpeech.QUEUE_ADD, null);
+                mTextToSpeech.speak(String.valueOf(mPlayerName + " has " + mLifeCounterMain.getLifeCounter().getAmount()) + " life.", TextToSpeech.QUEUE_ADD, null);
                 return true;
         }
         return super.onOptionsItemSelected(item);

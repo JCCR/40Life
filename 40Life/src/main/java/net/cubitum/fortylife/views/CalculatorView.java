@@ -19,6 +19,7 @@ public class CalculatorView extends TableLayout {
     static Evaluator sEvaluator = null;
 
     ImageButton mCalcDel;
+
     public CalculatorView(Context context) {
         super(context);
 
@@ -39,14 +40,14 @@ public class CalculatorView extends TableLayout {
         setAllButtonListener(group);
         mEditText = (EditText) findViewById(R.id.editText);
         mCalcDel = (ImageButton) findViewById(R.id.calc_del);
-        mCalcDel.setOnLongClickListener(new OnLongClickListener(){
+        mCalcDel.setOnLongClickListener(new OnLongClickListener() {
 
-            @Override
-            public boolean onLongClick(View v) {
-                mEditText.setText("");
-                return true;
-            }
-        }
+                                            @Override
+                                            public boolean onLongClick(View v) {
+                                                mEditText.setText("");
+                                                return true;
+                                            }
+                                        }
         );
     }
 
@@ -69,7 +70,7 @@ public class CalculatorView extends TableLayout {
     }
 
     public static String evaluate(String input) {
-        if(sEvaluator == null){
+        if (sEvaluator == null) {
             sEvaluator = new Evaluator();
         }
         try {

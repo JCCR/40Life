@@ -1,5 +1,12 @@
 package net.cubitum.fortylife.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.jakewharton.disklrucache.DiskLruCache;
+
+import org.apache.commons.io.IOUtils;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,13 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.jakewharton.disklrucache.DiskLruCache;
 
 public class SimpleDiskCache {
 
@@ -80,7 +80,7 @@ public class SimpleDiskCache {
 
     public boolean contains(String key) throws IOException {
         DiskLruCache.Snapshot snapshot = diskLruCache.get(toInternalKey(key));
-        if(snapshot==null) return false;
+        if (snapshot == null) return false;
 
         snapshot.close();
         return true;

@@ -3,10 +3,10 @@ package net.cubitum.fortylife;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.CountDownTimer;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -44,15 +44,16 @@ public class SearchActivity extends ActionBarActivity {
         GREEN = 4
     */
     boolean[] mManaSelected = new boolean[5];
-    static int sBacklogThreshold =15;
+    static int sBacklogThreshold = 15;
     private CountDownTimer mSearchTimer;
     private ProgressBar mProgressBar;
     private TextView mTextView;
-    private List<Pair<String,String>> mResultBacklog;
+    private List<Pair<String, String>> mResultBacklog;
     private boolean mUseBacklog;
     private int mBacklogCount;
     static SimpleDiskCache sDiskCache;
     private static final int MAX_DISK_CACHE_SIZE = 10 * 1024 * 1024; //10MB
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,16 +64,17 @@ public class SearchActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        if(sDiskCache ==null){
+        if (sDiskCache == null) {
             try {
-                sDiskCache = SimpleDiskCache.open(createDefaultCacheDir(this),1,MAX_DISK_CACHE_SIZE);
+                sDiskCache = SimpleDiskCache.open(createDefaultCacheDir(this), 1, MAX_DISK_CACHE_SIZE);
             } catch (IOException e) {
-                Log.w("Cache","Cache creation failed: "+e.getMessage());
+                Log.w("Cache", "Cache creation failed: " + e.getMessage());
             }
         }
         mSearchTimer = new CountDownTimer(750, 750) {
             @Override
-            public void onTick(long millisUntilFinished) {}
+            public void onTick(long millisUntilFinished) {
+            }
 
             @Override
             public void onFinish() {
@@ -84,12 +86,12 @@ public class SearchActivity extends ActionBarActivity {
             public String get(String key) {
                 try {
                     SimpleDiskCache.StringEntry entry = sDiskCache.getString(key);
-                    if(entry==null){
+                    if (entry == null) {
                         return null;
                     }
                     return entry.getString();
                 } catch (IOException e) {
-                    Log.w("Cache","Cache get failed ("+key+"): "+e.getMessage());
+                    Log.w("Cache", "Cache get failed (" + key + "): " + e.getMessage());
                     return null;
                 }
             }
@@ -97,7 +99,7 @@ public class SearchActivity extends ActionBarActivity {
             @Override
             public void put(String key, String string) {
                 try {
-                    sDiskCache.put(key,string);
+                    sDiskCache.put(key, string);
                 } catch (IOException e) {
                     Log.w("Cache", "Cache put failed (" + key + "): " + e.getMessage());
                 }
@@ -106,9 +108,9 @@ public class SearchActivity extends ActionBarActivity {
         mCardSearch.setOnResultsLoadedListener(new CardSearch.OnResultsLoadedListener() {
             @Override
             public void onResultsLoaded() {
-                final List<Pair<String,String>> resultList = new ArrayList<Pair<String,String>>();
+                final List<Pair<String, String>> resultList = new ArrayList<Pair<String, String>>();
                 for (Card c : mCardSearch.results()) {
-                    resultList.add(Pair.create(c.imageUrl,c.name));
+                    resultList.add(Pair.create(c.imageUrl, c.name));
                 }
 
                 runOnUiThread(new Runnable() {
@@ -116,10 +118,10 @@ public class SearchActivity extends ActionBarActivity {
                     public void run() {
                         mListView.setOnScrollListener(new EndlessScrollListener());
                         mProgressBar.setVisibility(View.INVISIBLE);
-                        if(mUseBacklog){
+                        if (mUseBacklog) {
                             mResultBacklog.addAll(resultList);
                             mCardArrayAdapter.addAll(mResultBacklog.subList(0, sBacklogThreshold));
-                        }else{
+                        } else {
                             mCardArrayAdapter.addAll(resultList);
 
                         }
@@ -162,13 +164,13 @@ public class SearchActivity extends ActionBarActivity {
         }
         new Thread() {
             public void run() {
-                mUseBacklog=false;
-                mBacklogCount=0;
+                mUseBacklog = false;
+                mBacklogCount = 0;
                 int result = mCardSearch.filter(selectedMana.toArray(new CardManaSymbol[selectedMana.size()])).search();
-                if(result>sBacklogThreshold){
-                    mResultBacklog = new ArrayList<Pair<String,String>>(result);
-                    mUseBacklog =true;
-                    mBacklogCount =sBacklogThreshold;
+                if (result > sBacklogThreshold) {
+                    mResultBacklog = new ArrayList<Pair<String, String>>(result);
+                    mUseBacklog = true;
+                    mBacklogCount = sBacklogThreshold;
                 }
                 if (result == 0) {
                     runOnUiThread(new Runnable() {
@@ -205,17 +207,17 @@ public class SearchActivity extends ActionBarActivity {
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mTextView = (TextView) findViewById(R.id.textView);
         mListView = (ListView) findViewById(R.id.listView);
-        mCardArrayAdapter = new CardArrayAdapter(this, new ArrayList<Pair<String,String>>());
+        mCardArrayAdapter = new CardArrayAdapter(this, new ArrayList<Pair<String, String>>());
         mListView.setAdapter(mCardArrayAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CardView cardView = ((CardView)view.findViewById(R.id.view));
+                CardView cardView = ((CardView) view.findViewById(R.id.view));
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("CardName",cardView.getCardName());
-                resultIntent.putExtra("CardImage",cardView.getCardImage());
-                resultIntent.putExtra("CardColor",cardView.getCardColor());
+                resultIntent.putExtra("CardName", cardView.getCardName());
+                resultIntent.putExtra("CardImage", cardView.getCardImage());
+                resultIntent.putExtra("CardColor", cardView.getCardColor());
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
                 //Log.w(((CardView)view.findViewById(R.id.view)).getCardName(),((CardView)view.findViewById(R.id.view)).getCardImage());
@@ -323,18 +325,18 @@ public class SearchActivity extends ActionBarActivity {
             }
             if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
 
-                if(mUseBacklog){
-                    int end = mBacklogCount+sBacklogThreshold;
-                    if(end>mResultBacklog.size()){
+                if (mUseBacklog) {
+                    int end = mBacklogCount + sBacklogThreshold;
+                    if (end > mResultBacklog.size()) {
                         end = mResultBacklog.size();
-                        mUseBacklog =false;
+                        mUseBacklog = false;
                     }
-                    mCardArrayAdapter.addAll(mResultBacklog.subList(mBacklogCount,end));
-                    mBacklogCount+=sBacklogThreshold;
-                    if(mBacklogCount>=mResultBacklog.size()){
-                        mUseBacklog=false;
+                    mCardArrayAdapter.addAll(mResultBacklog.subList(mBacklogCount, end));
+                    mBacklogCount += sBacklogThreshold;
+                    if (mBacklogCount >= mResultBacklog.size()) {
+                        mUseBacklog = false;
                     }
-                }else{
+                } else {
                     mListView.setOnScrollListener(sDummyScrollListener);
                     new Thread() {
                         public void run() {
@@ -351,7 +353,8 @@ public class SearchActivity extends ActionBarActivity {
         public void onScrollStateChanged(AbsListView view, int scrollState) {
         }
     }
-    public static class DummyScrollListener implements AbsListView.OnScrollListener{
+
+    public static class DummyScrollListener implements AbsListView.OnScrollListener {
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {

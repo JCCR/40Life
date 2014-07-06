@@ -1,8 +1,5 @@
 package net.cubitum.fortylife.search;
 
-/**
-* Created by JuanCarlos on 12/10/13.
-*/
 public enum CardManaSymbol {
     VARIABLE("X"),
     ZERO("0"),
@@ -40,16 +37,16 @@ public enum CardManaSymbol {
         symbol = s;
     }
 
-    public static CardManaSymbol valueFromSymbol(String symbol){
-        for(CardManaSymbol c : CardManaSymbol.values()){
-            if(c.symbol.equals(symbol)){
+    public static CardManaSymbol valueFromSymbol(String symbol) {
+        for (CardManaSymbol c : CardManaSymbol.values()) {
+            if (c.symbol.equals(symbol)) {
                 return c;
             }
         }
         return null;
     }
 
-    public String toString(){
+    public String toString() {
         return symbol;
     }
 }

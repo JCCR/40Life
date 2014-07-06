@@ -23,16 +23,12 @@ import android.widget.ToggleButton;
 import net.cubitum.fortylife.R;
 import net.cubitum.fortylife.model.LifeCounter;
 import net.cubitum.fortylife.model.SimpleCounter;
-import net.cubitum.fortylife.views.CalculatorView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by JuanCarlos on 11/12/13.
- */
-public class LargeLifeCounterView extends LinearLayout  implements Animation.AnimationListener{
+public class LargeLifeCounterView extends LinearLayout implements Animation.AnimationListener {
 
     private LinearLayout mLifeLayout;
     private FrameLayout mExtraLayout;
@@ -91,17 +87,17 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
         }
     }
 
-    public void togglePoisonMode(){
+    public void togglePoisonMode() {
         mPoisonMode = !mPoisonMode;
         update();
-        if(mPoisonMode){
+        if (mPoisonMode) {
             mModeText.setText(R.string.poison_caps);
-        }else{
+        } else {
             mModeText.setText(R.string.life_caps);
         }
         Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.dim_text_fade_in_out);
         fadeInAnimation.setAnimationListener(this);
-        mModeText.startAnimation(fadeInAnimation );
+        mModeText.startAnimation(fadeInAnimation);
     }
 
     public boolean isShowExtras() {
@@ -113,11 +109,12 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
         mExtraLayout.setVisibility(mShowExtras ? View.VISIBLE : View.GONE);
     }
 
-    public void restore(LifeCounter lifeCounter,boolean powerSaveTheme, boolean mShowExtras){
+    public void restore(LifeCounter lifeCounter, boolean powerSaveTheme, boolean mShowExtras) {
         setLifeCounter(lifeCounter);
         update();
         setShowExtras(mShowExtras);
     }
+
     public void initialize(int startingLife, boolean powerSaveTheme) {
 
         if (powerSaveTheme) {
@@ -281,7 +278,7 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
         }
     }
 
-    public void reset(){
+    public void reset() {
         getLifeCounter().reset();
         update();
     }
@@ -301,7 +298,7 @@ public class LargeLifeCounterView extends LinearLayout  implements Animation.Ani
 
     }
 
-    public void setLifeBackground(int color){
+    public void setLifeBackground(int color) {
         mLifeLayout.setBackgroundColor(color);
     }
 }

@@ -6,14 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.PicassoDrawable;
 
-/**
- * Created by JuanCarlos on 12/21/13.
- */
 public class CardImageView extends ImageView {
 
     int mCardColor;
@@ -38,25 +34,25 @@ public class CardImageView extends ImageView {
     @Override
     public void setImageDrawable(Drawable drawable) {
 
-        if(drawable != null){
+        if (drawable != null) {
 
             if (drawable instanceof PicassoDrawable) {
-                Bitmap original = ((PicassoDrawable)drawable).getImage().getBitmap();
-                mCardColor = original.getPixel(0,0);
-                original = Bitmap.createBitmap(original,0,1,300,433);
+                Bitmap original = ((PicassoDrawable) drawable).getImage().getBitmap();
+                mCardColor = original.getPixel(0, 0);
+                original = Bitmap.createBitmap(original, 0, 1, 300, 433);
                 super.setImageBitmap(original);
                 mColorSetListener.onColorSet();
-            }else{
+            } else {
                 super.setImageDrawable(drawable);
             }
 
         }
     }
 
-    public static Bitmap drawableToBitmap (Drawable drawable) {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
 
         if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable)drawable).getBitmap();
+            return ((BitmapDrawable) drawable).getBitmap();
         }
 
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -76,7 +72,6 @@ public class CardImageView extends ImageView {
     interface OnColorSetListener {
         public void onColorSet();
     }
-
 
 
 }

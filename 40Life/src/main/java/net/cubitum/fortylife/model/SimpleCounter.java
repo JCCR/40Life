@@ -1,12 +1,5 @@
 package net.cubitum.fortylife.model;
 
-import android.os.CountDownTimer;
-
-import java.util.ArrayList;
-
-/**
- * Created by JuanCarlos on 11/14/13.
- */
 public class SimpleCounter {
     private int amount;
     private int startingAmount;
@@ -19,7 +12,7 @@ public class SimpleCounter {
         return amount;
     }
 
-    public int getStartingAmount(){
+    public int getStartingAmount() {
         return startingAmount;
     }
 
@@ -28,7 +21,7 @@ public class SimpleCounter {
         return amount;
     }
 
-    public SimpleCounter(){
+    public SimpleCounter() {
         this(0);
     }
 
@@ -37,7 +30,7 @@ public class SimpleCounter {
         this.amount = startingAmount;
     }
 
-    public void reset(){
+    public void reset() {
         amount = startingAmount;
     }
 }

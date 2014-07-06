@@ -1,17 +1,8 @@
 package net.cubitum.fortylife.views;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import android.os.AsyncTask;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.squareup.picasso.Picasso;
@@ -19,9 +10,6 @@ import com.squareup.picasso.Picasso;
 import net.cubitum.fortylife.R;
 import net.cubitum.fortylife.util.CardTransformation;
 
-/**
- * Created by JuanCarlos on 12/21/13.
- */
 public class CardView extends FrameLayout {
     FrameLayout mFrameLayout;
     CardImageView mCardImageView;
@@ -32,7 +20,7 @@ public class CardView extends FrameLayout {
         super(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.card, this);
-        if(isInEditMode()){
+        if (isInEditMode()) {
             return;
         }
         loadViews();
@@ -42,7 +30,7 @@ public class CardView extends FrameLayout {
         super(context, attrs);
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.card, this);
-        if(isInEditMode()){
+        if (isInEditMode()) {
             return;
         }
         loadViews();
@@ -70,19 +58,21 @@ public class CardView extends FrameLayout {
         this.mCardName = mCardName;
     }
 
-    public int getCardColor(){
+    public int getCardColor() {
         return mCardImageView.getCardColor();
     }
-    public void setCardImage(String url){
+
+    public void setCardImage(String url) {
         mCardImageUrl = url;
-        try{
+        try {
             Picasso.with(this.getContext()).load(url).transform(new CardTransformation()).into(mCardImageView);
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 
     }
-    public String getCardImage(){
+
+    public String getCardImage() {
         return mCardImageUrl;
     }
 

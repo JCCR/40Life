@@ -11,9 +11,6 @@ import android.widget.LinearLayout;
 import net.cubitum.fortylife.R;
 import net.cubitum.fortylife.model.SimpleCounter;
 
-/**
- * Created by JuanCarlos on 11/12/13.
- */
 public abstract class SmallLifeCounterView extends LinearLayout {
 
     private LinearLayout mLifeLayout;
@@ -47,9 +44,9 @@ public abstract class SmallLifeCounterView extends LinearLayout {
         loadViews();
     }
 
-    public SmallLifeCounterView(Context context, boolean dummy, int index,int row){
+    public SmallLifeCounterView(Context context, boolean dummy, int index, int row) {
         this(context);
-        if(dummy){
+        if (dummy) {
             mLifeButton.setEnabled(false);
             mLifeButton.setText("");
         }
@@ -60,7 +57,7 @@ public abstract class SmallLifeCounterView extends LinearLayout {
     private void loadViews() {
         mLifeLayout = (LinearLayout) findViewById(R.id.layout_lifecounter);
         mLifeButton = (Button) findViewById(R.id.btn_mainlife);
-        initialize(0,false);
+        initialize(0, false);
     }
 
     public SimpleCounter getLifeCounter() {
@@ -83,7 +80,7 @@ public abstract class SmallLifeCounterView extends LinearLayout {
             @Override
             public boolean onLongClick(View v) {
                 if (!mTwoFingersTapped) {
-                      //decrease life?
+                    //decrease life?
                     increaseOrDecreaseLifeBy(5);
                 } else {
                     onLifeLongClick();
@@ -130,17 +127,17 @@ public abstract class SmallLifeCounterView extends LinearLayout {
 
     private void increaseOrDecreaseLifeBy(int diff) {
 
-            mLifeButton.setText(String.valueOf(mLifeCounter.increaseOrDecreaseBy(diff)));
+        mLifeButton.setText(String.valueOf(mLifeCounter.increaseOrDecreaseBy(diff)));
     }
 
-    public void reset(){
+    public void reset() {
         getLifeCounter().reset();
         update();
     }
 
     public abstract void onLifeLongClick();
 
-    public void setLifeBackground(int color){
+    public void setLifeBackground(int color) {
         mLifeLayout.setBackgroundColor(color);
     }
 }

@@ -8,9 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-/**
- * Created by JuanCarlos on 12/10/13.
- */
+
 public class CardSearch {
     private static String USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
     private String lastCardFromPreviousResult;
@@ -20,20 +18,21 @@ public class CardSearch {
     private Card[] results;
     private int count = 0;
     private ICardSearchCache cache;
-    public CardSearch(ICardSearchCache cache){
+
+    public CardSearch(ICardSearchCache cache) {
         this.cache = cache;
         this.setOnCardSetListener(new OnCardSetListener() {
             @Override
             public void onCardSet() {
                 count++;
-                if(count==results.length){
+                if (count == results.length) {
                     mResultsLoadedListener.onResultsLoaded();
                 }
             }
         });
     }
 
-    public int search(){
+    public int search() {
         page = 0;
         noMoreResults = false;
         lastCardFromPreviousResult = "";
@@ -71,46 +70,47 @@ public class CardSearch {
     }
 
 
-public CardSearch filter(CardManaSymbol[] manaColors){
-    this.manaColors = manaColors;
-    return this;
-}
-    private int search(int page){
+    public CardSearch filter(CardManaSymbol[] manaColors) {
+        this.manaColors = manaColors;
+        return this;
+    }
+
+    private int search(int page) {
         count = 0;
         String[] colors = null;
-        if(manaColors != null && manaColors.length > 0){
-            colors= new String[manaColors.length];
-            for(int i = 0; i < manaColors.length; i++){
+        if (manaColors != null && manaColors.length > 0) {
+            colors = new String[manaColors.length];
+            for (int i = 0; i < manaColors.length; i++) {
                 colors[i] = manaColors[i].toString();
             }
         }
-        String[] cards = getCardList(colors,page);
-        if(cards == null){
+        String[] cards = getCardList(colors, page);
+        if (cards == null) {
             return -1;
         }
-        if(cards.length == 0){
+        if (cards.length == 0) {
             return 0;
         }
         lastCardFromPreviousResult = cards[0];
         results = new Card[cards.length];
-        for(int i = 0; i < cards.length; i++){
+        for (int i = 0; i < cards.length; i++) {
 
             final Card card = new Card();
             card.name = cards[i];
             results[i] = card;
-            new Thread(){
-                public void run(){
+            new Thread() {
+                public void run() {
                     String cacheUrl = cache.get(card.name);
-                    if(cacheUrl==null){
+                    if (cacheUrl == null) {
                         Document doc = null;
                         try {
-                            doc = Jsoup.connect("http://magiccards.info/query?q=%21"+card.name).timeout(20000).userAgent(USER_AGENT).get();
+                            doc = Jsoup.connect("http://magiccards.info/query?q=%21" + card.name).timeout(20000).userAgent(USER_AGENT).get();
                         } catch (IOException e) {
 
                         }
-                        if(doc != null){
+                        if (doc != null) {
                             cacheUrl = doc.select("html > body > table:nth-of-type(3) > tbody > tr > td:nth-of-type(1) > img").attr("src");
-                            cache.put(card.name,cacheUrl);
+                            cache.put(card.name, cacheUrl);
                         }
                     }
                     card.imageUrl = cacheUrl;
@@ -121,18 +121,18 @@ public CardSearch filter(CardManaSymbol[] manaColors){
         return cards.length;
     }
 
-    public int next(){
-        if(noMoreResults){
-            Log.w("TEST","NoMoreResults");
+    public int next() {
+        if (noMoreResults) {
+            Log.w("TEST", "NoMoreResults");
             return 0;
         }
         page++;
-        Log.w("TEST","Page = "+page);
+        Log.w("TEST", "Page = " + page);
         String lastCard = lastCardFromPreviousResult;
-        Log.w("TEST","LastCard = " + lastCard);
+        Log.w("TEST", "LastCard = " + lastCard);
         int search = search(page);
-        Log.w("TEST","Result = "+search);
-        if(search==0){
+        Log.w("TEST", "Result = " + search);
+        if (search == 0) {
             noMoreResults = true;
             return 0;
         }
@@ -140,20 +140,20 @@ public CardSearch filter(CardManaSymbol[] manaColors){
         return search;
     }
 
-    public Card[] results(){
+    public Card[] results() {
         return results;
     }
 
-    private String[] getCardList(String[] colors, int page){
+    private String[] getCardList(String[] colors, int page) {
         Document doc;
         String colorQuery = "";
-        if(colors!=null){
-            if(colors.length>0){
-                colorQuery+="&color=+@(";
-                for(String s : colors){
-                    colorQuery+="+["+s.toUpperCase()+"]";
+        if (colors != null) {
+            if (colors.length > 0) {
+                colorQuery += "&color=+@(";
+                for (String s : colors) {
+                    colorQuery += "+[" + s.toUpperCase() + "]";
                 }
-                colorQuery+=")";
+                colorQuery += ")";
             }
         }
         try {
@@ -165,7 +165,7 @@ public CardSearch filter(CardManaSymbol[] manaColors){
         Elements es = doc.select(".cardItem");
         String[] result = new String[es.size()];
         int i = 0;
-        for(Element e : es){
+        for (Element e : es) {
             result[i] = e.select(".name").text();
             i++;
         }

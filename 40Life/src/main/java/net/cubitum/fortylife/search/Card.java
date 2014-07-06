@@ -6,9 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-/**
- * Created by JuanCarlos on 12/10/13.
- */
 public class Card {
     public String id;
     public String imageUrl;
@@ -50,11 +47,11 @@ public class Card {
                 Matcher regexMatcher = regex.matcher(text);
                 while (regexMatcher.find()) {
                     CardManaSymbol c = CardManaSymbol.valueFromSymbol(regexMatcher.group().replace("{", "").replace("}", ""));
-                    if(c!=null){
+                    if (c != null) {
                         list.add(c);
                     }
                 }
-                colorIdentity = list.toArray(new CardManaSymbol[list.size()]);;
+                colorIdentity = list.toArray(new CardManaSymbol[list.size()]);
             } catch (PatternSyntaxException ex) {
             }
         }
@@ -62,7 +59,7 @@ public class Card {
     }
 
     private static CardManaSymbol[] parseManaCostText(String text) {
-        if(text.equals("0")){
+        if (text.equals("0")) {
             return new CardManaSymbol[]{CardManaSymbol.ZERO};
         }
         List<CardManaSymbol> list = new ArrayList<CardManaSymbol>(text.length());
@@ -78,7 +75,7 @@ public class Card {
             } else if (c == '(') {
                 buildString = true;
             } else if (c == ')') {
-                tmpString+=")";
+                tmpString += ")";
                 buildString = false;
                 list.add(CardManaSymbol.valueFromSymbol(tmpString));
                 tmpString = "";

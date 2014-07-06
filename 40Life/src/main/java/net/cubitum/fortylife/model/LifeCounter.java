@@ -5,9 +5,6 @@ import android.os.CountDownTimer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by JuanCarlos on 11/12/13.
- */
 public class LifeCounter extends SimpleCounter {
 
     private int tempLifeDiff;
@@ -40,14 +37,13 @@ public class LifeCounter extends SimpleCounter {
         };
     }
 
-    public void lifeLogUpdate(){
+    public void lifeLogUpdate() {
         lifeLogTimer.cancel();
-        if(tempLifeDiff != 0){
+        if (tempLifeDiff != 0) {
             lifeLog.add(tempLifeDiff);
             tempLifeDiff = 0;
         }
     }
-
 
 
 }

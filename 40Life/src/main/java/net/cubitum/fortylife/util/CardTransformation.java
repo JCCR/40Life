@@ -8,11 +8,7 @@ import android.graphics.Paint;
 
 import com.squareup.picasso.Transformation;
 
-/**
- * Created by JuanCarlos on 12/22/13.
- */
 public class CardTransformation implements Transformation {
-
 
 
     protected int[] HSBtoRGB(float hue, float saturation, float brightness) {
@@ -128,12 +124,14 @@ public class CardTransformation implements Transformation {
         canvas.drawBitmap(bmp, 0, 0, paint);
         return ret;
     }
-    static final int sArtWidth = 50, sArtHeight =37;
+
+    static final int sArtWidth = 50, sArtHeight = 37;
+
     @Override
     public Bitmap transform(Bitmap source) {
         Bitmap result = Bitmap.createBitmap(source, 6, 5, 300, 434);
         Bitmap cropped = Bitmap.createBitmap(result, 14, 42, 273, 200);
-        cropped = Bitmap.createScaledBitmap(cropped, sArtWidth, sArtHeight,true);
+        cropped = Bitmap.createScaledBitmap(cropped, sArtWidth, sArtHeight, true);
         int[] pix = new int[sArtWidth * sArtHeight];
         cropped.getPixels(pix, 0, sArtWidth, 0, 0, sArtWidth, sArtHeight);
         int count = 0;
@@ -193,7 +191,7 @@ public class CardTransformation implements Transformation {
         canvas = new Canvas(result);
         Paint paint = new Paint();
         paint.setColor(finalColor);
-        canvas.drawPoint(0f,0f,paint);
+        canvas.drawPoint(0f, 0f, paint);
 
         if (result != source) {
             source.recycle();
@@ -201,5 +199,8 @@ public class CardTransformation implements Transformation {
         return result;
     }
 
-    @Override public String key() { return "card()"; }
+    @Override
+    public String key() {
+        return "card()";
+    }
 }
