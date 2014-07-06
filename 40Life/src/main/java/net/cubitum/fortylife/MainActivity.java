@@ -159,8 +159,6 @@ public class MainActivity extends ActionBarActivity implements SharedPreferences
         //initialize app ui
         if (!mInitialized) {
             mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
-            //mLifeCounterMain = (LargeLifeCounterView) findViewById(R.id.lifecounter_main2);
-            mLifeCounterMain.initialize(mStartingLife, mPowerSaveMode);
             initializeTableLayoutGenerals();
             mInitialized = true;
         }
