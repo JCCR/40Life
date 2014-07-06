@@ -37,15 +37,15 @@ public class CardImageView extends ImageView {
         if (drawable != null) {
 
             if (drawable instanceof PicassoDrawable) {
-                Bitmap original = ((PicassoDrawable) drawable).getImage().getBitmap();
-                mCardColor = original.getPixel(0, 0);
-                original = Bitmap.createBitmap(original, 0, 1, 300, 433);
-                super.setImageBitmap(original);
+                mCardColor = ((PicassoDrawable) drawable)
+                        .getImage()
+                        .getBitmap()
+                        .getPixel(0, 0);
+                super.setImageDrawable(drawable);
                 mColorSetListener.onColorSet();
             } else {
                 super.setImageDrawable(drawable);
             }
-
         }
     }
 

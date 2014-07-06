@@ -52,7 +52,7 @@ public class SearchActivity extends ActionBarActivity {
     private boolean mUseBacklog;
     private int mBacklogCount;
     static SimpleDiskCache sDiskCache;
-    private static final int MAX_DISK_CACHE_SIZE = 10 * 1024 * 1024; //10MB
+    private static final int MAX_DISK_CACHE_SIZE = 50 * 1024 * 1024; //50MB
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

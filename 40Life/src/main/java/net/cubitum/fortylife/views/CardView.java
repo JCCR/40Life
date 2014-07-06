@@ -1,5 +1,7 @@
 package net.cubitum.fortylife.views;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -43,7 +45,23 @@ public class CardView extends FrameLayout {
         mCardImageView.setOnColorSetListener(new CardImageView.OnColorSetListener() {
             @Override
             public void onColorSet() {
-                mFrameLayout.setBackgroundColor(getCardColor());
+
+                if (android.os.Build.VERSION.SDK_INT < 11) {
+                    mFrameLayout.setBackgroundColor(getCardColor());
+                } else {
+                    Integer colorFrom = getResources().getColor(R.color.lifelayout1_background);
+                    Integer colorTo = getCardColor();
+                    ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                    colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animator) {
+                            mFrameLayout.setBackgroundColor((Integer) animator.getAnimatedValue());
+                        }
+
+                    });
+                    colorAnimation.start();
+                }
             }
         });
 
