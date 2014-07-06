@@ -17,6 +17,13 @@
         android:summary="@string/pref_description_commander"
         android:defaultValue="true" />
 
+
+    <CheckBoxPreference
+        android:key="duel_mode"
+        android:title="@string/pref_duel"
+        android:summary="@string/pref_description_duel"
+        android:defaultValue="false" />
+
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
     <EditTextPreference

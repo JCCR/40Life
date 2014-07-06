@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -47,14 +48,14 @@ public class SettingsActivity extends PreferenceActivity {
 
         setupSimplePreferencesScreen();
         bindCommanderToLifePreference();
+        bindDuelModePreference();
     }
 
     private void bindCommanderToLifePreference() {
 
+        CheckBoxPreference commanderMode = (CheckBoxPreference) findPreference("commander_mode");
 
-        CheckBoxPreference commander_mode = (CheckBoxPreference) findPreference("commander_mode");
-
-        commander_mode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        commanderMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 ListPreference life_total = (ListPreference) findPreference("life_total");
@@ -68,6 +69,31 @@ public class SettingsActivity extends PreferenceActivity {
                 return true;
             }
         });
+    }
+
+    private void bindDuelModePreference() {
+
+        CheckBoxPreference duelMode = (CheckBoxPreference) findPreference("duel_mode");
+        updateDuelModePreference(duelMode.isChecked());
+
+        duelMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                updateDuelModePreference((Boolean)newValue);
+                return true;
+            }
+        });
+    }
+
+    private void updateDuelModePreference(Boolean value){
+        EditTextPreference playerCount = (EditTextPreference) findPreference("player_count");
+        if (value) {
+            playerCount.setEnabled(false);
+            playerCount.setSummary("2");
+        } else {
+            playerCount.setEnabled(true);
+            playerCount.setSummary(playerCount.getText());
+        }
     }
 
     /**

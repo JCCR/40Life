@@ -13,6 +13,9 @@
     <string name="pref_commander">Commander/EDH mode</string>
     <string name="pref_description_commander">Enable this for the Commander/EDH interface.</string>
 
+    <string name="pref_duel">1v1 mode</string>
+    <string name="pref_description_duel">Show two life counters for a duel.</string>
+
     <string name="pref_title_life_total">Starting life</string>
     <string name="pref_default_life_total">20</string>
 
