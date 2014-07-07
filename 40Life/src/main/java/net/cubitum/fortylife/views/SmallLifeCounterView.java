@@ -75,9 +75,9 @@ public abstract class SmallLifeCounterView extends LinearLayout {
     public void initialize(int startingLife, boolean powerSaveTheme) {
 
         if (powerSaveTheme) {
-            mLifeLayout.setBackgroundResource(R.color.lifelayout2_background);
+            mLifeLayout.setBackgroundColor(getResources().getColor(R.color.lifelayout2_background));
         } else {
-            mLifeLayout.setBackgroundResource(R.color.lifelayout1_background);
+            mLifeLayout.setBackgroundColor(getResources().getColor(R.color.lifelayout1_background));
         }
         mLifeCounter = new SimpleCounter(startingLife);
         mLifeButton.setOnLongClickListener(new OnLongClickListener() {
