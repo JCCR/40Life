@@ -118,13 +118,13 @@ public class LargeLifeCounterView extends LinearLayout implements Animation.Anim
     public void initialize(int startingLife, boolean powerSaveTheme) {
 
         if (powerSaveTheme) {
-            mLifeLayout.setBackgroundResource(R.color.lifelayout2_background);
-            mExtraLayout.setBackgroundResource(R.color.extralayout2_background);
+            mLifeLayout.setBackgroundColor(getResources().getColor(R.color.lifelayout2_background));
+            mExtraLayout.setBackgroundColor(getResources().getColor(R.color.extralayout2_background));
             mPoisonIcon.setImageResource(R.drawable.skull_icon2);
             mCombatDmgIcon.setImageResource(R.drawable.sword_icon2);
         } else {
-            mLifeLayout.setBackgroundResource(R.color.lifelayout1_background);
-            mExtraLayout.setBackgroundResource(R.color.extralayout1_background);
+            mLifeLayout.setBackgroundColor(getResources().getColor(R.color.lifelayout1_background));
+            mExtraLayout.setBackgroundColor(getResources().getColor(R.color.extralayout1_background));
             mPoisonIcon.setImageResource(R.drawable.skull_icon);
             mCombatDmgIcon.setImageResource(R.drawable.sword_icon);
         }
