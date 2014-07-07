@@ -1,6 +1,8 @@
 package net.cubitum.fortylife.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -57,7 +59,9 @@ public abstract class SmallLifeCounterView extends LinearLayout {
     private void loadViews() {
         mLifeLayout = (LinearLayout) findViewById(R.id.layout_lifecounter);
         mLifeButton = (Button) findViewById(R.id.btn_mainlife);
-        initialize(0, false);
+
+        initialize(0, PreferenceManager.getDefaultSharedPreferences(
+                this.getContext()).getBoolean("power_save_mode", false));
     }
 
     public SimpleCounter getLifeCounter() {
